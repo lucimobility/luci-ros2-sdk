@@ -88,7 +88,7 @@ jobs:
       - name: Checkout docs repo
         uses: actions/checkout@v3
         with:
-          repository: lucimobility/luci-ros2-sdk-docs
+          repository: alex-luci/luci-ros2-sdk-docs
           ref: main
           path: ${{env.DOCS_REPO}}
           token: ${{ secrets.ACCESS_TOKEN }}
@@ -133,7 +133,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          repository: lucimobility/luci-ros2-sdk-docs
+          repository: alex-luci/luci-ros2-sdk-docs
           branch: main
           tags: true
           directory: ${{env.DOCS_REPO}}
