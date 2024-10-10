@@ -10,8 +10,9 @@ WORKDIR /root
 # General install stuff
 RUN apt update \
     && apt install -y \
-    cmake \ 
+    cmake \
     vim \
+    nano \
     gdb \
     build-essential \
     autoconf \
