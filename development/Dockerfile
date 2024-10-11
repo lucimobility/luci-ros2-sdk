@@ -10,8 +10,9 @@ WORKDIR /root
 # General install stuff
 RUN apt update \
     && apt install -y \
-    cmake \ 
+    cmake \
     vim \
+    nano \
     gdb \
     build-essential \
     autoconf \
@@ -70,7 +71,7 @@ RUN apt update \
 
 
 # Install Foxglove support
-RUN apt install ros-humble-foxglove-bridge
+RUN apt-get update && apt-get install -y ros-humble-foxglove-bridge
 
 # Add ROS2 sources to terminal by default
 RUN echo source "/opt/ros/humble/setup.bash" >> /root/.bashrc
