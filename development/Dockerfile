@@ -70,7 +70,7 @@ RUN apt update \
 
 
 # Install Foxglove support
-RUN apt install ros-humble-foxglove-bridge
+RUN apt install ros-humble-foxglove-bridge -y
 
 # Add ROS2 sources to terminal by default
 RUN echo source "/opt/ros/humble/setup.bash" >> /root/.bashrc

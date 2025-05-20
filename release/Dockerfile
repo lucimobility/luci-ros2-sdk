@@ -62,7 +62,7 @@ RUN apt-mark hold ros-humble-luci-basic-teleop \
 
 
 # Install Foxglove support
-RUN apt install ros-humble-foxglove-bridge
+RUN apt install ros-humble-foxglove-bridge -y
 
 # Clean the docker image
 RUN apt-get clean
