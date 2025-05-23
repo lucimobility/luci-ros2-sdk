@@ -72,7 +72,22 @@ Description: An example node that can be used to drive LUCI using the arrow keys
 
 ```
 
-**Note: Currently only Ubuntu focal (22.04) is supported. If you need support for another Linux version please submit an issue card in the [SDK Repo](https://github.com/lucimobility/luci-ros2-sdk)**
+## Non Debian Install
+LUCI is proud to have the SDK packages open-source. If you want to make specific changes you can directly clone the repositories from github. Here are the steps:
+
+1. Make a ws directory `mkdir ros_ws`
+2. `cd ros_ws`
+3. Make a project directory `mkdir luci_ros2/src`
+4. `cd luci_ros2/src`
+5. clone the repositories you need. To run the basic grpc, you will need 2 repositories, grpc_interface and luci_messages. If you need TF, you can also clone the tf_transforms repository we provide. 
+    - luci-ros2-grpc - `git clone https://github.com/lucimobility/luci-ros2-grpc.git`
+    - luci-ros2-msgs - `git clone https://github.com/lucimobility/luci-ros2-msgs.git`
+    - luci-ros2-transforms - `https://github.com/lucimobility/luci-ros2-transforms.git`
+
+You can also visit LUCI [github](https://github.com/lucimobility) for more repositories and our work. 
+
+
+**Note: Currently only Ubuntu focal (22.04/20.04) with ROS Humble is supported. If you need support for another Linux/Ubuntu version please submit an issue card in the [SDK Repo](https://github.com/lucimobility/luci-ros2-sdk)**
 
 ## Test the install
 
