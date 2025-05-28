@@ -77,16 +77,17 @@ LUCI is proud to have the SDK packages open-source. If you want to make specific
 
 1. Make a ws directory `mkdir ros_ws`
 2. `cd ros_ws`
-3. Make a project directory `mkdir luci_ros2/src`
-4. `cd luci_ros2/src`
-5. clone the repositories you need. To run the basic grpc, you will need 2 repositories, grpc_interface and luci_messages. If you need TF, you can also clone the tf_transforms repository we provide. 
+3. Make a project directory `mkdir luci-ros2`
+4. Make a src directory `mkdir luci-ros2/src`
+5. `cd luci-ros2/src`
+6. clone the repositories you need. To run the basic grpc, you will need 2 repositories, grpc_interface and luci_messages. If you need TF, you can also clone the tf_transforms repository we provide. 
     - luci-ros2-grpc - `git clone https://github.com/lucimobility/luci-ros2-grpc.git`
     - luci-ros2-msgs - `git clone https://github.com/lucimobility/luci-ros2-msgs.git`
-    - luci-ros2-transforms - `https://github.com/lucimobility/luci-ros2-transforms.git`
-6. Now cd back to src level. Note: You should only need to build at the src level. 
-7. Since gRPC depends on message definitions, it's best to build them first. Run `colcon build --packages-select luci_messages`, then source the setup script for your shell: `source install/setup.bash` (for Bash) or `source install/setup.zsh` (for Zsh). Use the appropriate command if you're using a different shell.
-8. Once the luci_messages package is built, you can run `colcon build` to build all remaining packages. Then, source the appropriate setup script for your shell: `source install/setup.bash` (for Bash), `source install/setup.zsh` (for Zsh), or the equivalent for your shell. 
-9. You are all set to run LUCI with the SDK.
+    - luci-ros2-transforms - `git clone https://github.com/lucimobility/luci-ros2-transforms.git`
+7. Now make sure you're in the src directory. Note: You should only need to build at the src level. 
+8. Since gRPC depends on message definitions, it's best to build them first. Run `colcon build --packages-select luci_messages`, then source the setup script for your shell: `source install/setup.bash` (for Bash) or `source install/setup.zsh` (for Zsh). Use the appropriate command if you're using a different shell.
+9. Once the luci_messages package is built, you can run `colcon build` to build all remaining packages. Then, source the appropriate setup script for your shell: `source install/setup.bash` (for Bash), `source install/setup.zsh` (for Zsh), or the equivalent for your shell. 
+10. You are all set to run LUCI with the SDK.
 
 You can also visit LUCI [github](https://github.com/lucimobility) for more repositories and our work. 
 
@@ -110,7 +111,7 @@ To test your install open a new terminal and run
 
 Then you should be able to type ros2 run luci and tab complete you should get several options.
 
-For Native Install, you will have to run `source ros_ws/luci_ros2/install/setup.bash` for the tab options to show up. 
+For Native Install, you will have to run `source ros_ws/luci-ros2/install/setup.bash` for the tab options to show up. 
 
 To test your connection with LUCI, in the same terminal run `ros2 run luci_grpc_interface grpc_interface_node -a <CHAIR_IP>`
 

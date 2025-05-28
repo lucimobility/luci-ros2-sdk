@@ -23,14 +23,15 @@ To run LUCI with ROS you only need two [luci-ros2-grpc](https://github.com/lucim
 
 1. Make a ws directory `mkdir ros_ws`
 2. `cd ros_ws`
-3. Make a project directory `mkdir luci_ros2/src`
-4. `cd luci_ros2/src`
-5. Run `git clone https://github.com/lucimobility/luci-ros2-grpc.git` and `git clone https://github.com/lucimobility/luci-ros2-msgs.git`
-6. Now cd back to src level. Note: You should only need to build at the src level. 
-7. Since gRPC depends on message definitions, it's best to build them first. Run `colcon build --packages-select luci_messages`, then source the setup script for your shell: `source install/setup.bash` (for Bash) or `source install/setup.zsh` (for Zsh). Use the appropriate command if you're using a different shell.
-8. Once the luci_messages package is built, you can run `colcon build` to build all remaining packages. Then, source the appropriate setup script for your shell: `source install/setup.bash` (for Bash), `source install/setup.zsh` (for Zsh), or the equivalent for your shell. 
-9. You are all set to run LUCI with the SDK.
-10. To connect to LUCI, run the following command: `ros2 run luci_grpc_interface grpc_interface_node -a <IP>`. More information for this node can be found on [luci-ros2-grpc](https://github.com/lucimobility/luci-ros2-grpc) repository.
+3. Make a project directory `mkdir luci-ros2`
+4. Make a src directory `mkdir luci-ros2/src`
+5. `cd luci-ros2/src`
+6. Run `git clone https://github.com/lucimobility/luci-ros2-grpc.git` and `git clone https://github.com/lucimobility/luci-ros2-msgs.git`
+7. Now cd back to src level. Note: You should only need to build at the src level. 
+8. Since gRPC depends on message definitions, it's best to build them first. Run `colcon build --packages-select luci_messages`, then source the setup script 9or your shell: `source install/setup.bash` (for Bash) or `source install/setup.zsh` (for Zsh). Use the appropriate command if you're using a different shell.
+9. Once the luci_messages package is built, you can run `colcon build` to build all remaining packages. Then, source the appropriate setup script for your shell: `source install/setup.bash` (for Bash), `source install/setup.zsh` (for Zsh), or the equivalent for your shell. 
+10. You are all set to run LUCI with the SDK.
+11. To connect to LUCI, run the following command: `ros2 run luci_grpc_interface grpc_interface_node -a <IP>`. More information for this node can be found on [luci-ros2-grpc](https://github.com/lucimobility/luci-ros2-grpc) repository.
 
 ### File struture to follow
 ```bash
