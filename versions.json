@@ -1,12 +1,12 @@
 {
     "messages": {
-        "version": "v1.3.0"
+        "version": "v2.0.0"
     },
     "grpc": {
-        "version": "v1.3.0"
+        "version": "v2.0.0"
     },
     "keyboard_teleop": {
-        "version": "v1.0.0"
+        "version": "v2.0.0"
     },
     "transforms": {
         "version": "v1.0.0"
