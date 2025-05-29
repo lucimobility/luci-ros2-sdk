@@ -22,27 +22,25 @@ Each package is published to an apt repository upon release and is added by firs
 
 If this is your first time using the LUCI ROS2 SDK repository you need to first add the repo and gpg key to you system. This informs your computer that the LUCI .deb packages exist and can be installed.
 
-Note you will only need to run the next two commands the first time you need to install our packages on your system. If you are updating existing LUCI packages this is not needed
-
 ### Add the GPG key
 
-`curl -fsSL https://luci.jfrog.io/artifactory/api/security/keypair/humble-sdk-key/public | gpg --dearmor -o /usr/share/keyrings/ros2-sdk-packages.gpg`
+`curl -fsSL https://luci.jfrog.io/artifactory/api/security/keypair/ros-humble-keys/public | sudo gpg --dearmor -o /usr/share/keyrings/ros2-sdk-packages.gpg`
 
 ### Add the debian repository to sources file
 
-`sudo sh -c "echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/ros2-sdk-packages.gpg] https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy private' >> /etc/apt/sources.list"`
+`echo "deb [signed-by=/usr/share/keyrings/ros2-sdk-packages.gpg] https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy private" | sudo tee /etc/apt/sources.list.d/ros2-sdk-packages.list > /dev/null`
 
 ### Install the package
 
-Once you have added the repo and gpg key for the LUCI ROS2 packages you can install all by running the command below
+Once you have added the repo and gpg key for the LUCI ROS2 packages you can install all by running the command below. These will install the latest updated versions of the package. 
 
 ```
 sudo apt update
-apt install ros-humble-luci-basic-teleop=1.0.0-0jammy 
-apt install ros-humble-luci-grpc-interface=1.0.0-0jammy 
-apt install ros-humble-luci-messages=1.0.0-0jammy 
-apt install ros-humble-luci-third-party=1.1.0-0jammy 
-apt install ros-humble-luci-transforms=1.0.0-0jammy
+apt install ros-humble-luci-basic-teleop
+apt install ros-humble-luci-grpc-interface
+apt install ros-humble-luci-messages
+apt install ros-humble-luci-third-party
+apt install ros-humble-luci-transforms
 ```
 
 After each install you should see it downloaded the version of the package that matches the version number listed in the versions.json file
@@ -53,22 +51,22 @@ To check the version of a given package run
 
 For examble to check the basic-teleop package you would run
 
-`apt show ros-humble-luci-basic-teleop`
+`apt show ros-humble-luci-messages`
 
 and the output should be similar to this
 
 ```
-Package: ros-humble-luci-basic-teleop
-Version: 1.0.0-0focal
+Package: ros-humble-luci-messages
+Version: 2.0.0-0jammy
 Priority: optional
 Section: misc
-Installed-Size: 45.1 kB
-Depends: ros-galactic-rclpy, ros-galactic-std-msgs
-Download-Size: 8,100 B
+Maintainer: shail <shail@luci.com>
+Installed-Size: 1185 kB
+Depends: libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libpython3.10 (>= 3.10.0), libstdc++6 (>= 5.2), ros-humble-fastcdr, ros-humble-rosidl-default-runtime, ros-humble-std-msgs
+Download-Size: 84.7 kB
 APT-Manual-Installed: yes
 APT-Sources: https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy/private amd64 Packages
-Description: An example node that can be used to drive LUCI using the arrow keys on your keyboard.
- ctrl+c or q to terminate. Compatible with Linux.
+Description: Custom Luci message types
 
 ```
 
