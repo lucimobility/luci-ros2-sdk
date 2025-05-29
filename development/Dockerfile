@@ -35,14 +35,13 @@ RUN apt install locales \
     && update-locale LC_ALL=en_US.UTF-8 LAND=en_US.UTF-8 \
     && export LANG=en_US.UTF-8
 
-
 # Add ROS repo
 RUN apt update \
     && apt upgrade -y \
     && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
-# Install (static) gRPC with protobuf, we can use versions newer then the ones used by LUCI because ite regenerated at compile time
+# Install (static) gRPC with protobuf, we can use versions newer then the ones used by LUCI because its regenerated at compile time
 RUN git clone -b v1.56.2 https://github.com/grpc/grpc grpc \
     && cd grpc \
     && git submodule update --init \
@@ -67,7 +66,6 @@ RUN apt update \
     debhelper \
     dh-python \
     && apt-get clean
-
 
 # Install Foxglove support
 RUN apt install ros-humble-foxglove-bridge -y
