@@ -12,7 +12,7 @@ Each package follows the same [Semantic Versioning](https://semver.org/) as the 
 
 ## Package versions
 
-The correct versions of the binary packages can be found in the versions.json file in the SDK repo corresponding to the SDK release tag.
+The correct versions of the binary packages can be found in the versions.json file in the release directory of the SDK repo corresponding to the SDK release tag.
 
 This file shows all the packages that are included in said release and their version number.
 

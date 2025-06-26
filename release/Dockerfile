@@ -43,16 +43,32 @@ RUN apt update \
     && apt install -y ros-dev-tools \
     && apt install -y ros-humble-desktop
 
-# Install LUCI ROS2 SDK
-RUN cd \
-    && curl -fsSL https://luci.jfrog.io/artifactory/api/security/keypair/ros-humble-keys/public | sudo gpg --dearmor -o /usr/share/keyrings/ros2-sdk-packages.gpg\
-    && sh -c "echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/ros2-sdk-packages.gpg] https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy private' >> /etc/apt/sources.list"\
-    && apt update \
-    && apt install ros-humble-luci-basic-teleop \
-    && apt install ros-humble-luci-grpc-interface \
-    && apt install ros-humble-luci-messages \
-    && apt install ros-humble-luci-third-party \
-    && apt install ros-humble-luci-transforms
+# Add LUCI repo
+RUN curl -fsSL https://luci.jfrog.io/artifactory/api/security/keypair/ros-humble-keys/public | \
+    gpg --dearmor -o /usr/share/keyrings/ros2-sdk-packages.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/ros2-sdk-packages.gpg] https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy private" \
+    > /etc/apt/sources.list.d/luci.list && \
+    apt update
+
+# Copy the version JSON
+COPY versions.json /root/version.json
+
+# Install packages based on pinned versions
+RUN apt update && apt install -y jq bash && \
+    bash -c "\
+        declare -A key_to_pkg=( \
+            [messages]='ros-humble-luci-messages' \
+            [grpc]='ros-humble-luci-grpc-interface' \
+            [keyboard_teleop]='ros-humble-luci-basic-teleop' \
+            [transforms]='ros-humble-luci-transforms' \
+            [third_party]='ros-humble-luci-third-party' \
+        ); \
+        for key in \${!key_to_pkg[@]}; do \
+            version=\$(jq -r --arg k \"\$key\" '.[\$k].version' /root/version.json | sed 's/^v//'); \
+            pkg=\${key_to_pkg[\$key]}; \
+            echo \"Installing \$pkg version \$version\"; \
+            apt install -y \"\$pkg=\${version}-0jammy\" || exit 1; \
+        done"
 
 # Hold all LUCI packages so they dont auto update on apt update
 RUN apt-mark hold ros-humble-luci-basic-teleop \
@@ -60,6 +76,8 @@ RUN apt-mark hold ros-humble-luci-basic-teleop \
     && apt-mark hold ros-humble-luci-messages \
     && apt-mark hold ros-humble-luci-third-party \
     && apt-mark hold ros-humble-luci-transforms
+
+RUN rm -f /root/version.json
 
 # Install Foxglove support
 RUN apt install ros-humble-foxglove-bridge -y

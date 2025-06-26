@@ -24,7 +24,7 @@ jobs:
       - name: JSON to variables
         uses: antifree/json-to-variables@v1.0.1
         with:
-          filename: "${{env.SDK_REPO}}/versions.json"
+          filename: "${{env.SDK_REPO}}/release/versions.json"
           prefix: packages
       - run: |
           echo ${{env.packages_messages_version}} 
