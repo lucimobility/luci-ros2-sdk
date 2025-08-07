@@ -26,7 +26,8 @@ The current features of the ROS2 SDK are as follows:
 - Writing of Joystick values for remote operation
 - Other data streams are being added soon
 
-Since current wheelchairs do not include encoders, information on adding encoders and encoder data to the data provided through the SDK is also included.
+SDK also provides encoder streams. If you chair doesnt have encoders, this ROS2 stream will still exist but will have no data. 
+
 For development and testing of new alternative drive solutions, where ROS2 is not required, WDI compatible input devices can be used directly by plugging into the LuciLink Hub (USB hub) on the back of the seat. 
 There are additional examples and READMEs in the associated, public repos that are good resources as well.
 
@@ -36,7 +37,7 @@ This SDK is a combination of multiple individual packages. Each package is a sep
 
 New tags will be released based on aggressiveness of the changes which may include new support for an upgraded ROS or WDI version or the inclusion of new features in the form of additional package binaries.
 
-Versioning is handled on a major.minor.patch method, until the official SDK is released all developers will be using a version < 1.0.0.
+Versioning is handled on a major.minor.patch method.
 
 As new features are added to individual ROS2 packages their individual repos will be tagged and binaries released to the public via a deb artifactory. 
 
@@ -48,6 +49,10 @@ As new features are added to individual ROS2 packages their individual repos wil
 # Package Descriptions
 
 There are several individual packages that are designed to be as separate as possible (though some internal dependencies do exist) so that each package can be run individually depending on the feature set and level of LUCI input needed.
+
+# Software Dependency Table
+
+[Dependency_Table](../README.md#luci-core-software-and-sdk-interdependency-chart)
 
 # License
 The LUCI Sandbox SDK falls under the [Apache 2.0 License](http://www.apache.org/licenses/)
