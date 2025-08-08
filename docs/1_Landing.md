@@ -52,7 +52,7 @@ There are several individual packages that are designed to be as separate as pos
 
 # Software Dependency Table
 
-[Dependency_Table](../README.md#luci-core-software-and-sdk-interdependency-chart)
+[Dependency_Table](https://github.com/lucimobility/luci-ros2-sdk/blob/main/README.md#luci-core-software-and-sdk-interdependency-chart)
 
 # License
 The LUCI Sandbox SDK falls under the [Apache 2.0 License](http://www.apache.org/licenses/)
