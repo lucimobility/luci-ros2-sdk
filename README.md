@@ -22,19 +22,21 @@ This repo supports multiple docker images in order to build and deploy them plea
 
 [Troubleshooting](docs/troubleshooting.md)
 
-
 [Contributing](docs/CONTRIBUTING.md)
 
 ## LUCI Core Software and SDK Interdependency chart ##
 
 The SDK version depends on the LUCI Core version installed on the chair. The table below outlines compatible versions of the SDK and related packages. LUCI Core and its SDK components are updated in sync, so it's important to ensure all versions match appropriately.
 
-|LUCI Core Version | luci-ros2-sdk | luci-ros2-grpc | luci-ros2-msgs | luci-ros2-transforms | luci-ros2-keyboard-teleop | Status | ROS2 Version |
+|LUCI Core Version | luci-ros2-sdk | luci-ros2-grpc | luci-ros2-msgs | luci-ros2-transforms | luci-ros2-keyboard-teleop | encoder-to-odom-library | Status | ROS2 Version |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| 3.0.2 - 3.0.3 | 3.0.0 | 2.0.0 | 2.0.0 | 1.1.0 | 2.0.0 | Recommeded and Maintained | Humble |
-| 2.0.3 - 2.0.8 | 2.1.0 | 1.1.0 - 1.4.0 | 1.1.0 - 1.4.0 | 1.1.0 | 1.0.0 | Not Actively Maintained | Humble |
-| 2.0.1 - 2.0.2 | 2.0.0 | 1.0.0 | 1.0.0 | 1.0.0 | 1.0.0 | Not Actively Maintained | Humble |
-| 1.5.2 - 2.0.0 | 1.2.2 | <1.0.0 | <1.0.0 | <1.0.0 | <1.0.0 | Not Actively Maintained | Humble |
+| 3.0.4 | 3.0.1 | 2.0.1 | 2.0.0 | 1.1.0 | 2.0.0 | 1.1.0 | Recommeded and Maintained | Humble |
+| 3.0.2 - 3.0.3 | 3.0.0 | 2.0.0 | 2.0.0 | 1.1.0 | 2.0.0 | 1.0.1 | Maintained | Humble |
+| 2.0.3 - 2.0.8 | 2.1.0 | 1.1.0 - 1.4.0 | 1.1.0 - 1.4.0 | 1.1.0 | 1.0.0 | 1.0.0 | Not Actively Maintained | Humble |
+| 2.0.1 - 2.0.2 | 2.0.0 | 1.0.0 | 1.0.0 | 1.0.0 | 1.0.0 | - | Not Actively Maintained | Humble |
+| 1.5.2 - 2.0.0 | 1.2.2 | <1.0.0 | <1.0.0 | <1.0.0 | <1.0.0 | - | Not Actively Maintained | Humble |
+
+The expectation is that the user is always on the newest version of the software. If you need LUCI Core software update, please reach out to us.
 
 
 ## Releasing new version (FOR LUCI TEAM) ##
