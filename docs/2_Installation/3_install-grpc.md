@@ -37,10 +37,11 @@ git clone -b v1.56.2 https://github.com/grpc/grpc grpc \
     -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
     ../.. \
     && make -j$(nproc) \
-    && make install
+    && make install \
+    && sudo apt-get install libprotobuf-dev
 ```
 
-**For some systems the .local folder is not looked at for shared libraries by default. If you get a runtime error that says grpc_node cannot find libgrpc.so then run the command below.**
+**For some systems the .local folder is not looked at for shared libraries by default. If you get a runtime error that says grpc_node cannot find libgrpc, then run the command below.**
 
 `export LD_LIBRARY_PATH="$HOME/.local/lib":$LD_LIBRARY_PATH`
 
