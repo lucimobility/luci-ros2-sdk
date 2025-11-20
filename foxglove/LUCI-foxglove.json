@@ -1,39 +1,53 @@
 {
   "configById": {
-    "3D!18i6zy7": {
-      "layers": {
-        "845139cb-26bc-40b3-8161-8ab60af4baf5": {
-          "visible": true,
-          "frameLocked": true,
-          "label": "Grid",
-          "instanceId": "845139cb-26bc-40b3-8161-8ab60af4baf5",
-          "layerId": "foxglove.Grid",
-          "size": 10,
-          "divisions": 10,
-          "lineWidth": 1,
-          "color": "#248eff",
-          "position": [
-            0,
-            0,
-            0
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ],
-          "order": 1
+    "luci-joysticks.LUCI Joysticks!34zvrk1": {
+      "joysticks": {
+        "drive": {
+          "size": 20,
+          "color": "#ff1ec8",
+          "visible": true
+        },
+        "user": {
+          "size": 20,
+          "color": "#1eff1e",
+          "visible": true
+        },
+        "scaled": {
+          "size": 20,
+          "color": "#1f97ff",
+          "visible": true
         }
       },
+      "zones": {
+        "lines": {
+          "display": true,
+          "color": "#d6d6d6"
+        },
+        "currentZone": {
+          "display": true,
+          "backgroundColor": "#ffffff",
+          "textColor": "#000000",
+          "textSize": 25
+        }
+      }
+    },
+    "luci-scaling-panel.LUCI Scaling!42cgr35": {
+      "data": {
+        "fBColor": "#ff3232",
+        "lRColor": "#ff7d24",
+        "currentColor": "#96ebff"
+      }
+    },
+    "3D!i8pita": {
       "cameraState": {
-        "perspective": true,
-        "distance": 11.376001845523215,
-        "phi": 56.968853732203854,
-        "thetaOffset": 38.84843984197439,
+        "perspective": false,
+        "distance": 5.547791462281613,
+        "phi": 0.00005729577951308232,
+        "thetaOffset": 0.739150619567379,
         "targetOffset": [
-          -0.7002773985518858,
-          -0.398339303968114,
-          3.1886704009370817e-17
+          0.11060130913430335,
+          1.4615909164327725,
+          0.2553904980080436
         ],
         "target": [
           0,
@@ -52,46 +66,870 @@
       },
       "followMode": "follow-pose",
       "scene": {
+        "syncCamera": false,
         "transforms": {
-          "axisScale": 3
-        },
-        "labelScaleFactor": 0
+          "visible": true,
+          "showLabel": false,
+          "axisScale": 0.391,
+          "lineWidth": 0
+        }
       },
       "transforms": {
-        "frame:base_camera": {
+        "frame:": {
           "visible": false
         },
-        "frame:base_radar": {
+        "frame:base_link": {
+          "visible": true
+        },
+        "frame:left_camera": {
           "visible": false
         },
-        "frame:base_ultrasonic": {
+        "frame:right_camera": {
+          "visible": false
+        },
+        "frame:rear_camera": {
+          "visible": false
+        },
+        "frame:side_left_camera": {
+          "visible": false
+        },
+        "frame:side_right_camera": {
+          "visible": false
+        },
+        "frame:top_front_camera": {
+          "visible": false
+        },
+        "frame:top_rear_camera": {
           "visible": false
         }
       },
       "topics": {
-        "/luci/camera_points": {
-          "visible": true,
+        "/collision/left": {
+          "stixelsEnabled": false,
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/collision/rear": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/collision/right": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/dropoff/left": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/dropoff/rear": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/dropoff/right": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/raw/left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "explicitAlpha": 0.3,
+          "pointSize": 3,
+          "minValue": -0.5,
+          "maxValue": 0.2
+        },
+        "/raw/rear": {
+          "visible": false,
           "colorField": "x",
           "colorMode": "colormap",
           "colorMap": "turbo",
-          "pointSize": 6
+          "explicitAlpha": 0.3
         },
-        "/luci/radar_points": {
-          "visible": true,
+        "/raw/right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "explicitAlpha": 0.3,
+          "pointSize": 3,
+          "minValue": -0.5,
+          "maxValue": 0.2
+        },
+        "/step/left": {
+          "visible": false,
           "colorField": "x",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "flatColor": "#ff00eeff",
+          "pointSize": 5,
+          "decayTime": 0.2
+        },
+        "/step/rear": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/step/right": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 5,
+          "flatColor": "#f500cdff",
+          "decayTime": 0.2
+        },
+        "/dropoff/combined": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 10.38
+        },
+        "/cameras/grid/points/combined": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 3
+        },
+        "/raw/decimated/left": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/raw/decimated/rear": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/raw/decimated/right": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/cameras/grid/points/eroded": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "explicitAlpha": 1,
+          "pointSize": 3,
+          "minValue": -0.3,
+          "maxValue": -0.1
+        },
+        "/cameras/grid/image/left": {
+          "visible": false
+        },
+        "/cameras/grid/image/eroded": {
+          "visible": false
+        },
+        "/cameras/grid/image/dilated": {
+          "visible": false
+        },
+        "/cameras/depth/right": {
+          "visible": false
+        },
+        "/collision-points-2d": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/collision/combined": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/cameras/grid/image/right": {
+          "visible": false
+        },
+        "/raw/decimated/combined": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/step/combined": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 7,
+          "flatColor": "#df00ffff"
+        },
+        "/cameras/grid/points/grad_mag_sobel_blur_3": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "maxValue": 0.2,
+          "minValue": 0
+        },
+        "/cameras/grid/points/grad_mag_3_blur_3": {
+          "visible": false,
+          "colorField": "x",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/blobs/heights/points": {
+          "visible": true,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 3
+        },
+        "/grid/right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/grid/rear": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/grid/left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/grid/combined": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/grid/mag-gradient": {
+          "visible": true,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 4
+        },
+        "/grid/x-gradient": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/grid/y-gradient": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 3,
+          "minValue": -0.2,
+          "maxValue": 0.2
+        },
+        "/grid/dir-gradient": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 3
+        },
+        "/camera-processing/z-grid/hole-filled": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.005
+        },
+        "/camera-processing/near-dropoffs": {
+          "colorMode": "colormap",
+          "pointSize": 8.64,
+          "visible": false,
+          "colorField": "z",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "flatColor": "#ffffffff",
+          "cubeSize": 0.014
+        },
+        "/camera-processing/collision-z-grid/final": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "flatColor": "#ffd700ff",
+          "cubeSize": 0.03,
+          "pointSize": 7.5,
+          "cubeOutline": false
+        },
+        "/camera-processing/dropoff-z-grid/final": {
+          "pointShape": "cube",
+          "cubeSize": 0.03,
+          "flatColor": "#e60000ff",
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 11.5,
+          "cubeOutline": false
+        },
+        "/camera-processing/z-grid/initial": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/zones": {
+          "visible": true
+        },
+        "/camera-processing/z-grid/initial/left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#dbd7eeff"
+        },
+        "/camera-processing/z-grid/initial/right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "flatColor": "#b8aee7ff",
+          "pointSize": 4
+        },
+        "/camera-processing/gradient-grid/initial/magnitude": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 6.47,
+          "minValue": 0,
+          "maxValue": 0.7
+        },
+        "/camera-processing/point-cloud-sdk": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/gradient-grid/initial/angle": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 7.31
+        },
+        "/camera-processing/side-dropoffs": {
+          "pointShape": "cube",
+          "cubeSize": 0.016,
+          "flatColor": "#ffffffff",
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/gradient-grid/filtered/angle": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/side-dropoff/checked-indices": {
+          "visible": true,
+          "pointSize": 6.7,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.017,
+          "flatColor": "#7252ffff"
+        },
+        "/camera-processing/gradient-grid/filtered/magnitude": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/gradient-grid/initial/y": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 6.15,
+          "stixelsEnabled": false,
+          "minValue": -5.7242,
+          "maxValue": 2.8721
+        },
+        "/camera-processing/side-dropoff/in-bounds-indices": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.022,
+          "flatColor": "#ed7ff5ff"
+        },
+        "/camera-processing/footbox-clusters/left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 8.3
+        },
+        "/camera-processing/footbox-clusters/right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 5.24
+        },
+        "/camera-processing/footbox/initial": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 10.56
+        },
+        "/camera-processing/footbox/filtered": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 21.6
+        },
+        "/camera-processing/side-dropoff/left-indices": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.014,
+          "flatColor": "#617517ff"
+        },
+        "/camera-processing/side-dropoff/rear-indices": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.015,
+          "flatColor": "#617517ff"
+        },
+        "/camera-processing/side-dropoff/right-indices": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointShape": "cube",
+          "cubeSize": 0.014,
+          "cubeOutline": false,
+          "flatColor": "#617517ff"
+        },
+        "/camera-processing/z-grid/initial/rear": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#7663e2ff"
+        },
+        "/camera-processing/side-dropoff/left-indices-height": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 9.28,
+          "flatColor": "#ffffffff",
+          "pointShape": "cube",
+          "cubeSize": 0.017
+        },
+        "/camera-processing/side-dropoff/right-indices-height": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 14.94,
+          "pointShape": "cube",
+          "flatColor": "#ffffffff",
+          "cubeSize": 0.018
+        },
+        "/camera-processing/gradient-grid/initial/x": {
+          "visible": false,
+          "colorField": "z",
           "colorMode": "colormap",
           "colorMap": "turbo",
           "pointSize": 6,
-          "pointShape": "square"
+          "maxValue": 10,
+          "minValue": 0
         },
-        "/luci/ultrasonic_points": {
-          "visible": true,
-          "colorField": "x",
+        "/camera-processing/large-collision-gradient-grid/x": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/z-grid/visualization": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/gradient-grid/fov-removed/y": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/gradient-grid/fov-removed/x": {
+          "visible": false,
+          "colorField": "z",
           "colorMode": "colormap",
           "colorMap": "turbo",
-          "pointSize": 5
+          "pointSize": 8.2
+        },
+        "/camera-processing/z-grid/side-left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 2
+        },
+        "/camera-processing/z-grid/side-right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo"
+        },
+        "/camera-processing/z-grid/initial/side_left": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#6049e0ff"
+        },
+        "/camera-processing/z-grid/initial/side_right": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#8f80e3ff"
+        },
+        "/camera-processing/z-grid/initial/top_front": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#4123e9ff"
+        },
+        "/camera-processing/z-grid/initial/top_rear": {
+          "visible": false,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 4,
+          "flatColor": "#8575e2ff"
+        },
+        "/camera-processing/near-collisions/candidates": {
+          "visible": true,
+          "colorField": "z",
+          "colorMode": "colormap",
+          "colorMap": "turbo",
+          "pointSize": 4.98
+        },
+        "/zones/critical-lines": {
+          "visible": true
+        },
+        "/zones/critical-points": {
+          "visible": false
+        },
+        "/cameras/depth/left": {
+          "visible": false
+        },
+        "/cameras/depth/rear": {
+          "visible": false
+        },
+        "/cameras/ir/left": {
+          "visible": false
+        },
+        "/cameras/ir/rear": {
+          "visible": false
+        },
+        "/cameras/ir/right": {
+          "visible": false
+        },
+        "/camera-processing/collision-features/height-filtered": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/initial/angle": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/initial/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/initial/x": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/initial/y": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/reclassified/angle": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/reclassified/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/reclassified/x": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/reclassified/y": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/y-bounded/angle": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/y-bounded/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/y-bounded/x": {
+          "visible": false
+        },
+        "/camera-processing/collision-gradient-grid/y-bounded/y": {
+          "visible": false
+        },
+        "/camera-processing/collision-z-grid/blocked-cameras-added": {
+          "visible": false
+        },
+        "/camera-processing/collision-z-grid/feature-masked": {
+          "visible": false
+        },
+        "/camera-processing/collision-z-grid/near-collisions-added": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-default-gradient-angle-change/angle": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-default-gradient-angle-change/feature-average": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-default-gradient-angle-change/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-default-gradient-angle-change/x": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-default-gradient-angle-change/y": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-features/filtered": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-features/height-filtered": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-features/initial": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gap-classifications": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-camera-angles": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/initial/angle": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/initial/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/initial/x": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/initial/y": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/reclassified/angle": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/reclassified/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/reclassified/x": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/reclassified/y": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/y-bounded/angle": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/y-bounded/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/y-bounded/x": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/y-bounded/y": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/z-bounded/angle": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/z-bounded/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/z-bounded/x": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-gradient-grid/z-bounded/y": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-z-grid/edges-extrapolated": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-z-grid/feature-masked": {
+          "visible": false
+        },
+        "/camera-processing/dropoff-z-grid/near-dropoffs-added": {
+          "visible": false
+        },
+        "/camera-processing/footbox-clusters/rear": {
+          "visible": false
+        },
+        "/camera-processing/footbox/multiframe-filtered": {
+          "visible": false
+        },
+        "/camera-processing/fov/with-middle-edge": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/filtered/x": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/filtered/y": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/footbox-removed/angle": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/footbox-removed/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/footbox-removed/x": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/footbox-removed/y": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/fov-removed/angle": {
+          "visible": false
+        },
+        "/camera-processing/gradient-grid/fov-removed/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/large-collision-features": {
+          "visible": false
+        },
+        "/camera-processing/large-collision-gradient-grid/angle": {
+          "visible": false
+        },
+        "/camera-processing/large-collision-gradient-grid/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/large-collision-gradient-grid/y": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-features": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/angle": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/eroded/angle": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/eroded/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/eroded/x": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/eroded/y": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/magnitude": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/x": {
+          "visible": false
+        },
+        "/camera-processing/medium-collision-gradient-grid/y": {
+          "visible": false
+        },
+        "/camera-processing/near-collisions/filtered": {
+          "visible": false
+        },
+        "/camera-processing/near-collisions/initial": {
+          "visible": false
+        },
+        "/camera-processing/side-dropoffs/multiframe-filtered": {
+          "visible": false
+        },
+        "/camera-processing/z-grid/aligned/front": {
+          "visible": false
+        },
+        "/cane-points": {
+          "visible": false
+        },
+        "/decimated/combined": {
+          "visible": false
+        },
+        "/decimated/left": {
+          "visible": false
+        },
+        "/decimated/rear": {
+          "visible": false
+        },
+        "/decimated/right": {
+          "visible": false
+        },
+        "/collision": {
+          "visible": true,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "pointSize": 9,
+          "flatColor": "#a5e715ff"
+        },
+        "/dropoff": {
+          "visible": true,
+          "colorField": "z",
+          "colorMode": "flat",
+          "colorMap": "turbo",
+          "flatColor": "#994223ff",
+          "pointSize": 9
         }
       },
+      "layers": {},
       "publish": {
         "type": "point",
         "poseTopic": "/move_base_simple/goal",
@@ -100,108 +938,347 @@
         "poseEstimateXDeviation": 0.5,
         "poseEstimateYDeviation": 0.5,
         "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {}
+    },
+    "Image!2w026o7": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {
+        "/cameras/grid/points/combined": {
+          "visible": false
+        }
+      },
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/depth/left",
+        "colorMode": "colormap",
+        "rotation": 270,
+        "colorMap": "turbo"
       }
     },
-    "Plot!45k6yvv": {
-      "paths": [
-        {
-          "timestampMethod": "receiveTime",
-          "value": "/luci/odom.twist.twist.angular.z",
-          "enabled": true
+    "Image!2frjo42": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {
+        "/cameras/grid/points/combined": {
+          "visible": false
         }
-      ],
-      "showXAxisLabels": true,
-      "showYAxisLabels": true,
-      "showLegend": true,
-      "legendDisplay": "floating",
-      "showPlotValuesInLegend": false,
-      "isSynced": true,
-      "xAxisVal": "timestamp",
-      "sidebarDimension": 240,
-      "foxglovePanelTitle": "Plot"
+      },
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/depth/right",
+        "colorMode": "colormap",
+        "rotation": 270,
+        "colorMap": "turbo"
+      }
     },
-    "Plot!1xpyleg": {
-      "paths": [
-        {
-          "value": "/luci/odom.twist.twist.linear.y",
-          "enabled": true,
-          "timestampMethod": "receiveTime"
+    "Image!27ezn4o": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {
+        "/cameras/grid/points/combined": {
+          "visible": false
         }
-      ],
-      "showXAxisLabels": true,
-      "showYAxisLabels": true,
-      "showLegend": true,
-      "legendDisplay": "floating",
-      "showPlotValuesInLegend": false,
-      "isSynced": true,
-      "xAxisVal": "timestamp",
-      "sidebarDimension": 240,
-      "foxglovePanelTitle": "Plot"
+      },
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/depth/rear",
+        "colorMode": "colormap",
+        "rotation": 0,
+        "colorMap": "turbo"
+      }
     },
-    "Gauge!26hxtce": {
-      "path": "/luci/scaling.front_fb",
-      "minValue": 0,
-      "maxValue": 1,
-      "colorMap": "red-yellow-green",
-      "colorMode": "gradient",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
-      "reverse": false
+    "Image!3hegiro": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/ir/left",
+        "rotation": 270
+      }
     },
-    "virtual-joystick.Virtual Joystick!26jf2j6": {
-      "topic": "/luci/remote_joystick",
-      "publishRate": 5,
-      "maxLinearSpeed": 1,
-      "maxAngularSpeed": 1
+    "Image!16t9219": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/ir/right",
+        "rotation": 270
+      }
     },
-    "RawMessages!os6rgs": {
-      "diffEnabled": false,
-      "diffMethod": "custom",
-      "diffTopicPath": "",
-      "showFullMessageForDiff": false,
-      "topicPath": "/luci/joystick_position"
+    "Image!38oc54v": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {},
+      "transforms": {},
+      "topics": {},
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/cameras/ir/rear",
+        "rotation": 0
+      }
     },
-    "RawMessages!20xxqub": {
-      "diffEnabled": false,
-      "diffMethod": "custom",
-      "diffTopicPath": "",
-      "showFullMessageForDiff": false,
-      "topicPath": "/luci/drive_mode"
+    "Tab!4kc4mrf": {
+      "activeTabIdx": 0,
+      "tabs": [
+        {
+          "title": "3D Panel",
+          "layout": {
+            "first": {
+              "first": "luci-joysticks.LUCI Joysticks!34zvrk1",
+              "second": "luci-scaling-panel.LUCI Scaling!42cgr35",
+              "direction": "column",
+              "splitPercentage": 65.6021897810219
+            },
+            "second": "3D!i8pita",
+            "direction": "row",
+            "splitPercentage": 33.818938605619145
+          }
+        },
+        {
+          "title": "Depth",
+          "layout": {
+            "first": {
+              "first": "Image!2w026o7",
+              "second": "Image!2frjo42",
+              "direction": "row"
+            },
+            "second": "Image!27ezn4o",
+            "direction": "column",
+            "splitPercentage": 64.41605839416059
+          }
+        },
+        {
+          "title": "IR",
+          "layout": {
+            "first": {
+              "first": "Image!3hegiro",
+              "second": "Image!16t9219",
+              "direction": "row"
+            },
+            "second": "Image!38oc54v",
+            "direction": "column",
+            "splitPercentage": 69.25465838509317
+          }
+        }
+      ]
     }
   },
   "globalVariables": {},
   "userNodes": {},
   "playbackConfig": {
-    "speed": 1
+    "speed": 0.5
   },
-  "layout": {
-    "first": {
-      "first": "3D!18i6zy7",
-      "second": {
-        "first": "Plot!45k6yvv",
-        "second": "Plot!1xpyleg",
-        "direction": "column"
-      },
-      "direction": "row"
-    },
-    "second": {
-      "first": {
-        "first": "Gauge!26hxtce",
-        "second": "virtual-joystick.Virtual Joystick!26jf2j6",
-        "direction": "column"
-      },
-      "second": {
-        "first": "RawMessages!os6rgs",
-        "second": "RawMessages!20xxqub",
-        "direction": "column",
-        "splitPercentage": 38.957055214723944
-      },
-      "direction": "column",
-      "splitPercentage": 76.30813953488372
-    },
-    "direction": "row",
-    "splitPercentage": 83.84447796212501
-  }
+  "layout": "Tab!4kc4mrf"
 }
