@@ -33,7 +33,6 @@ jobs:
         shell: bash
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ENCODER_BRANCH: main
           DIGITAL_INT_BRANCH: main
           MESSAGE_BRANCH: main
           KEYBOARD_BRANCH: main

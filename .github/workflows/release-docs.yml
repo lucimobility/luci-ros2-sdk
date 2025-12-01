@@ -32,7 +32,6 @@ jobs:
           echo ${{env.packages_transforms_version}}
           echo ${{env.packages_keyboard_teleop_version}}
           echo ${{env.packages_third_party_version}}
-          echo ${{env.packages_encoder_version}}
           echo ${{env.packages_digital_interface_version}}
 
       - name: Clone and build docs
@@ -42,7 +41,6 @@ jobs:
         shell: bash
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ENCODER_BRANCH: ${{env.packages_encoder_version}}
           DIGITAL_INT_BRANCH: ${{env.packages_digital_interface_version}}
           MESSAGE_BRANCH: ${{env.packages_messages_version}}
           KEYBOARD_BRANCH: ${{env.packages_keyboard_teleop_version}}
