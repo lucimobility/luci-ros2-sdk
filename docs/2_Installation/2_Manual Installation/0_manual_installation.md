@@ -1,3 +1,120 @@
+# Manual Installation
+
+**Note: These are instruction for installing ROS2, luci_ros2_sdk, and other system dependencies onto a native Linux system. If you installed everything using the Quick Start and Docker instructions above here, then you do not need to do any part of the installation below.**
+
+
+# Installing Basic System Dependencies
+
+
+## Setting up your development machine
+
+Due to the nature of the current packages, some require dependencies before they can be installed or run. These packages are built and tested to support ROS2 Humble with Ubuntu 22.04. New packages can be developed to fit other ROS2 version and OS needs in the future.
+
+To install the LUCI ROS2 packages manually (which is not recommended) use the `apt install` commands listed.
+
+**If you are installing the SDK manually please follow all the installation sections to get fully set up**
+
+## Manual dependencies:
+
+To manually set up an existing system to use the LUCI ROS2 SDK follow the below instructions.
+
+Please note that some of these are system wide installs and could have conflicts with other libraries already installed on your system. If you are concerned about that please either plan on running the SDK packages on a separate clean system or use a virtual machine.
+
+## Install the dependencies below
+
+`sudo apt install -y cmake`
+
+`sudo apt install -y build-essential autoconf libtool pkg-config`
+
+`sudo apt-get install libspdlog-dev`
+
+
+# Install ROS2
+
+Instructions from the official ROS maintainers can be found here https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html but the steps we assume you run will be listed below
+
+### Set the local:
+
+`sudo apt update && sudo apt install locales`
+
+`sudo locale-gen en_US en_US.UTF-8`
+
+`sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8`
+
+`export LANG=en_US.UTF-8`
+
+### Add the ROS2 apt repository:
+
+`sudo apt update && sudo apt install curl gnupg lsb-release`
+
+`sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg`
+
+### Add the repo to sources:
+
+`echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null`
+
+### Install ROS2:
+
+`sudo apt update`
+
+`sudo apt upgrade -y`
+
+`sudo apt install ros-humble-desktop`
+
+ROS2 Humble should now be installed. See the above linked instructions to test it out and make sure its ready. (Try some examples)
+
+# Install gRPC
+
+**LUCI uses gRPC, developed by Google, for its wireless messaging system. This system uses protobuf as well. These are very version sensitive so it is important to use the exact versions that are listed below.**
+
+https://github.com/grpc/grpc/blob/master/BUILDING.md#build-from-source
+
+gRPC relies on protobuf as such defaults to installing a version with it. We can tell the installer that we already have protobuf installed however and avoid this. (Note: If you do not tell gRPC to use the 3.17.1 version of protobuf later steps will say that the generated .proto files were generated with the wrong version of protobuf)
+
+We will install gRPC in a special local location, this is very important because a system wide install of gRPC can be borderline impossible to change or uninstall.
+
+`cd ~`
+
+**The below command tells the system to install gRPC in ~/.local folder**
+
+`export MY_INSTALL_DIR=$HOME/.local`
+
+Make sure that directory actually exists
+
+`mkdir -p $MY_INSTALL_DIR`
+
+Add the bin path so it can be used at run time of the LUCI SDK packages
+
+`export PATH="$MY_INSTALL_DIR/bin:$PATH"`
+
+### Clone and Install:
+
+```
+git clone -b v1.56.2 https://github.com/grpc/grpc grpc \
+    && cd grpc \
+    && git submodule update --init \
+    && mkdir -p cmake/build \
+    && cd cmake/build \
+    && cmake -DgRPC_INSTALL=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DgRPC_BUILD_TESTS=OFF \
+    -DgRPC_PROTOBUF_PROVIDER=module \
+    -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
+    ../.. \
+    && make -j$(nproc) \
+    && make install \
+    && sudo apt-get install libprotobuf-dev
+```
+
+**For some systems the .local folder is not looked at for shared libraries by default. If you get a runtime error that says grpc_node cannot find libgrpc, then run the command below.**
+
+`export LD_LIBRARY_PATH="$HOME/.local/lib":$LD_LIBRARY_PATH`
+
+**Note: This will need to be done on each terminal you run gRPC node. You can add this to your bashrc file if you want it automatically done on each terminal you open**
+
+Now that gRPC is installed, using the protobuf version installed in the prior step, you are ready to clone and install the ROS2 SDK [repo](https://github.com/lucimobility/luci-ros2-sdk).
+
+
 # Install LUCI ROS2 SDK
 
 The ROS2 SDK provided by LUCI is broken up into a collection of examples and individual ROS2 packages. We chose to split the packages into individually installable .deb binaries. This choice was made to ensure that the SDK could be as modular as possible.
