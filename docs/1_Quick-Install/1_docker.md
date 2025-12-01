@@ -17,23 +17,27 @@ All of this run inside of a virtual machine within Docker, allowing you to use t
 
 If you don't have docker, you can install it by following instructions here: [Install Docker](https://docs.docker.com/engine/install/)
 
-## Working with Docker
+## Run the SDK in a Docker Container
 
 **Note: You may have to preface the docker commands below with 'sudo'**
 
 ### Pull the LUCI ROS2 SDK docker image
+The following will pull our latest docker image onto your machine.
 
 `docker pull luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest`
 
 ### Running the container
 
-**Step 1**: Run the main container in the background
+
 TODO: add more details here like: 
 - how to run it to use rviz
 - how to connect an external file
-`docker run -d -it -p 8765:8765 luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest`
 
-(Note: This runs the container in the background and will continue to run until explicitly stopped)
+**Step 1**: Run the main container in the background
+
+This command will run our luci-ros2-sdk docker image in a docker container and will continue to run until explicitly stopped.
+
+`docker run -d -it -p 8765:8765 luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest`
 
 **Step 2**: Get the container id
 `docker ps`
