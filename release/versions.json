@@ -3,19 +3,16 @@
         "version": "v2.0.0"
     },
     "grpc": {
-        "version": "v2.0.1"
+        "version": "v2.0.2"
     },
     "keyboard_teleop": {
-        "version": "v2.0.0"
+        "version": "v2.0.1"
     },
     "transforms": {
-        "version": "v1.0.0"
+        "version": "v2.0.0"
     },
     "third_party": {
-        "version": "v1.2.0"
-    },
-    "encoder": {
-        "version": "main"
+        "version": "v2.0.0"
     },
     "digital_interface": {
         "version": "main"
