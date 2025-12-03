@@ -1,26 +1,15 @@
 # Manual Installation
 
-**Note: These are instruction for installing ROS2, luci_ros2_sdk, and other system dependencies onto a native Linux system. If you installed everything using the Quick Start and Docker instructions above here, then you do not need to do any part of the installation below.**
+**Note: These are instructions for installing ROS2, luci_ros2_sdk, and other system dependencies onto a native Linux system. If you installed everything using the Quick Start and Docker instructions above here, then you do not need to do any part of the installation below.**
 
 
-# Installing Basic System Dependencies
+## Installing Basic System Dependencies
 
-
-## Setting up your development machine
-
-Due to the nature of the current packages, some require dependencies before they can be installed or run. These packages are built and tested to support ROS2 Humble with Ubuntu 22.04. New packages can be developed to fit other ROS2 version and OS needs in the future.
-
-To install the LUCI ROS2 packages manually (which is not recommended) use the `apt install` commands listed.
-
-**If you are installing the SDK manually please follow all the installation sections to get fully set up**
-
-## Manual dependencies:
-
-To manually set up an existing system to use the LUCI ROS2 SDK follow the below instructions.
+Due to the nature of the current packages, some require dependencies before they can be installed or run. These packages are built and tested to support ROS2 Humble with Ubuntu 22.04. 
 
 Please note that some of these are system wide installs and could have conflicts with other libraries already installed on your system. If you are concerned about that please either plan on running the SDK packages on a separate clean system or use a virtual machine.
 
-## Install the dependencies below
+Run the following commands to install the system dependencies.
 
 `sudo apt install -y cmake`
 
@@ -29,7 +18,7 @@ Please note that some of these are system wide installs and could have conflicts
 `sudo apt-get install libspdlog-dev`
 
 
-# Install ROS2
+## Installing ROS2
 
 Instructions from the official ROS maintainers can be found here https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html but the steps we assume you run will be listed below
 
@@ -63,7 +52,7 @@ Instructions from the official ROS maintainers can be found here https://docs.ro
 
 ROS2 Humble should now be installed. See the above linked instructions to test it out and make sure its ready. (Try some examples)
 
-# Install gRPC
+## Install gRPC
 
 **LUCI uses gRPC, developed by Google, for its wireless messaging system. This system uses protobuf as well. These are very version sensitive so it is important to use the exact versions that are listed below.**
 
@@ -115,11 +104,11 @@ git clone -b v1.56.2 https://github.com/grpc/grpc grpc \
 Now that gRPC is installed, using the protobuf version installed in the prior step, you are ready to clone and install the ROS2 SDK [repo](https://github.com/lucimobility/luci-ros2-sdk).
 
 
-# Install LUCI ROS2 SDK
+## Install LUCI ROS2 SDK
 
 The ROS2 SDK provided by LUCI is broken up into a collection of examples and individual ROS2 packages. We chose to split the packages into individually installable .deb binaries. This choice was made to ensure that the SDK could be as modular as possible.
 
-## Release packages
+### Release packages
 
 With each release of the SDK there are official packages of the ROS2 packages provided by LUCI published as well (See the Packages section) These packages are individually tagged with their current version and are grouped into a specific SDK release. This indicates that those packages will all be compatible with each other.
 
@@ -127,7 +116,7 @@ Each package follows the same [Semantic Versioning](https://semver.org/) as the 
 
 **Please note that we do NOT test any package versions for compatibility other then the ones in an official SDK. While some non SDK released packages may function it is not guaranteed.**
 
-## Package versions
+### Package versions
 
 The correct versions of the binary packages can be found in the versions.json file in the release directory of the SDK repo corresponding to the SDK release tag.
 
@@ -135,7 +124,7 @@ This file shows all the packages that are included in said release and their ver
 
 Each package is published to an apt repository upon release and is added by first informing your computer of the repository.
 
-## Install packages for specific SDK Release
+### Install packages for specific SDK Release
 
 If this is your first time using the LUCI ROS2 SDK repository you need to first add the repo and gpg key to you system. This informs your computer that the LUCI .deb packages exist and can be installed.
 
@@ -187,17 +176,18 @@ Description: Custom Luci message types
 
 ```
 
-## Non Debian Install
+### Non Debian Install
 LUCI is proud to have the SDK packages open-source. If you want to make specific changes you can directly clone the repositories from github. Here are the steps:
 
 1. Make a ws directory `mkdir ros_ws`
 2. `cd ros_ws`
 3. Make a project directory `mkdir luci_ros2/src`
 4. `cd luci_ros2/src`
-5. clone the repositories you need. To run the basic grpc, you will need 2 repositories, grpc_interface and luci_messages. If you need TF, you can also clone the tf_transforms repository we provide. 
+5. Clone the repositories you need. At a minimum, you will need luci_grpc_interface and luci_messages to communicate with LUCI. If you need TF, you can also clone the tf_transforms repository we provide. 
     - luci-ros2-grpc - `git clone https://github.com/lucimobility/luci-ros2-grpc.git`
     - luci-ros2-msgs - `git clone https://github.com/lucimobility/luci-ros2-msgs.git`
-    - luci-ros2-transforms - `https://github.com/lucimobility/luci-ros2-transforms.git`
+    - luci-ros2-transforms - `git clone https://github.com/lucimobility/luci-ros2-transforms.git`
+    - You can also clone the keyboard teleop demo with - `git clone https://github.com/lucimobility/luci-ros2-keyboard-teleop.git`
 6. Now cd back to src level. Note: You should only need to build at the src level. 
 7. Since gRPC depends on message definitions, it's best to build them first. Run `colcon build --packages-select luci_messages`, then source the setup script for your shell: `source install/setup.bash` (for Bash) or `source install/setup.zsh` (for Zsh). Use the appropriate command if you're using a different shell.
 8. Once the luci_messages package is built, you can run `colcon build` to build all remaining packages. Then, source the appropriate setup script for your shell: `source install/setup.bash` (for Bash), `source install/setup.zsh` (for Zsh), or the equivalent for your shell. 
