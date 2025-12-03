@@ -24,18 +24,15 @@ git clone -b ${DOCS_BRANCH} https://${ACCESS_TOKEN}@github.com/${DOCS_ACCOUNT}/$
 # Start with fresh file structure
 rm -rf $DOCS_REPO/source_files
 mkdir $DOCS_REPO/source_files
-mkdir $DOCS_REPO/source_files/'1_ROS2 SDK'
 
 # Copy doc files from all repos above to docs repo
-mkdir $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages
-cp -r $GRPC_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'GRPC Interface'
-cp -r $MESSAGE_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Messages'
-cp -r $TRANSFORMS_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/Transforms
-cp -r $KEYBOARD_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Basic Teleop'
-cp -r $THIRD_PARTY_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Third Party'
-cp -r ../docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/
-rm $DOCS_REPO/source_files/'1_ROS2 SDK'/*.md
-cp -r ../docs/*.md $DOCS_REPO/source_files/
+mkdir $DOCS_REPO/source_files/3_Packages
+cp -r $GRPC_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'GRPC Interface'
+cp -r $MESSAGE_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'Messages'
+cp -r $TRANSFORMS_REPO/docs/ $DOCS_REPO/source_files/3_Packages/Transforms
+cp -r $KEYBOARD_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'Basic Teleop'
+cp -r $THIRD_PARTY_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'Third Party'
+cp -r ../docs/* $DOCS_REPO/source_files/
 
 # Generate the static site
 cd $DOCS_REPO
