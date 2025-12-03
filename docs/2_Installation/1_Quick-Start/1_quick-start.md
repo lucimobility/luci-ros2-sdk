@@ -31,7 +31,7 @@ If you don't have docker, you can install it by following instructions here: [In
 
 We recommend that you start up the container with the following flags and configuration in order to use it with our examples.
 
-**Note: Before running the command below replace \<container-name> with any name of your choice**
+**Note: Before running the command below replace container-name with any name of your choice**
 
 ```bash
 sudo docker run -d -it \

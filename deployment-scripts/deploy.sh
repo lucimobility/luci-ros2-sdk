@@ -31,8 +31,8 @@ cp -r $MESSAGE_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Messa
 cp -r $TRANSFORMS_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/Transforms
 cp -r $KEYBOARD_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Basic Teleop'
 cp -r $THIRD_PARTY_REPO/docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/3_Packages/'Third Party'
-cp -r ../docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/2_How-To
-rm $DOCS_REPO/source_files/'1_ROS2 SDK'/2_How-To/*.md
+cp -r ../docs/ $DOCS_REPO/source_files/'1_ROS2 SDK'/
+rm $DOCS_REPO/source_files/'1_ROS2 SDK'/*.md
 cp -r ../docs/*.md $DOCS_REPO/source_files/
 
 # Generate the static site
