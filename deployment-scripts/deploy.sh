@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -ex
+
 SDK_REPO=luci-ros2-sdk
 MESSAGE_REPO=luci-ros2-msgs
 GRPC_REPO=luci-ros2-grpc
