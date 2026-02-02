@@ -3,6 +3,7 @@ name: Create Release Documentation
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 env:
   SDK_REPO: ${{github.event.repository.name}}
@@ -13,42 +14,96 @@ jobs:
     runs-on: ubuntu-latest
     container: luci.jfrog.io/ros2-sdk-docker-local/sdk-docs-deployment:latest
     steps:
+      # Generate GitHub App token
+      - name: Generate token from GitHub App
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: |
+            luci-ros2-sdk
+            luci-ros2-msgs
+            luci-ros2-grpc
+            luci-ros2-transforms
+            luci-ros2-keyboard-teleop
+            luci-ros2-third-party
+            luci-sdk-docs
 
       - name: Checkout SDK Branch
         uses: actions/checkout@v3
         with:
           ref: "main"
           path: ${{env.SDK_REPO}}
-
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: JSON to variables
         uses: antifree/json-to-variables@v1.0.1
         with:
           filename: "${{env.SDK_REPO}}/release/versions.json"
           prefix: packages
+      
       - run: |
           echo ${{env.packages_messages_version}} 
           echo ${{env.packages_grpc_version}} 
           echo ${{env.packages_transforms_version}}
           echo ${{env.packages_keyboard_teleop_version}}
           echo ${{env.packages_third_party_version}}
-          echo ${{env.packages_digital_interface_version}}
+
+      - name: Checkout Messages
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-msgs
+          ref: ${{env.packages_messages_version}}
+          path: luci-ros2-msgs
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout GRPC
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-grpc
+          ref: ${{env.packages_grpc_version}}
+          path: luci-ros2-grpc
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Transforms
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-transforms
+          ref: ${{env.packages_transforms_version}}
+          path: luci-ros2-transforms
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Keyboard
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-keyboard-teleop
+          ref: ${{env.packages_keyboard_teleop_version}}
+          path: luci-ros2-keyboard-teleop
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Third Party
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-third-party
+          ref: ${{env.packages_third_party_version}}
+          path: luci-ros2-third-party
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Docs
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/${{vars.DOCS_REPO}}
+          ref: main
+          path: ${{vars.DOCS_REPO}}
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Clone and build docs
         run: |
           cd ${{env.SDK_REPO}}
-          ./deployment-scripts/deploy.sh
+          ./deployment-scripts/build-docs.sh
         shell: bash
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          DIGITAL_INT_BRANCH: ${{env.packages_digital_interface_version}}
-          MESSAGE_BRANCH: ${{env.packages_messages_version}}
-          KEYBOARD_BRANCH: ${{env.packages_keyboard_teleop_version}}
-          GRPC_BRANCH: ${{env.packages_grpc_version}}
-          TRANSFORMS_BRANCH: ${{env.packages_transforms_version}}
-          THIRD_PARTY_BRANCH: ${{env.packages_third_party_version}}
-          DOCS_BRANCH: main
-          DOCS_REPO: ${{vars.DOCS_REPO}}
-          DOCS_ACCOUNT: ${{vars.DOCS_ACCOUNT}} # Push the docs to what ever docs repo is set in the sdk repo secrets (staging or main)
           BUILD_TYPE: ${{env.BUILD_TYPE}}
           REF_NAME: ${{github.ref_name}}
+          DOCS_REPO: ${{vars.DOCS_REPO}}

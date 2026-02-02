@@ -5,10 +5,9 @@ on:
     branches:
       - "main"
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    # Run an update everyday at 5:30 am to keep next updated
+  # * is a special character in YAML so you have to quote this string
+  # Run an update everyday at 5:30 am to keep next updated
     - cron: "30 5 * * *"
-
   workflow_dispatch:
 
 env:
@@ -20,27 +19,82 @@ jobs:
     runs-on: ubuntu-latest
     container: luci.jfrog.io/ros2-sdk-docker-local/sdk-docs-deployment:latest
     steps:
-      - name: Checkout SDK Branch
+      - name: Generate token from GitHub App
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: |
+            luci-ros2-sdk
+            luci-sdk-docs
+            luci-ros2-msgs
+            luci-ros2-grpc
+            luci-ros2-transforms
+            luci-ros2-keyboard-teleop
+            luci-ros2-third-party
+
+      - name: Checkout SDK
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
-          path: ${{env.SDK_REPO}}
+          path: luci-ros2-sdk
+          token: ${{ steps.generate-token.outputs.token }}
 
-      - name: Clone and build docs
+      - name: Checkout Messages
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-msgs
+          ref: main
+          path: luci-ros2-msgs
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout GRPC
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-grpc
+          ref: main
+          path: luci-ros2-grpc
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Transforms
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-transforms
+          ref: main
+          path: luci-ros2-transforms
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Keyboard
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-keyboard-teleop
+          ref: main
+          path: luci-ros2-keyboard-teleop
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Third Party
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/luci-ros2-third-party
+          ref: main
+          path: luci-ros2-third-party
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Checkout Docs
+        uses: actions/checkout@v3
+        with:
+          repository: lucimobility/${{vars.DOCS_REPO}}
+          ref: main
+          path: ${{vars.DOCS_REPO}}
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Build docs
         run: |
-          cd ${{env.SDK_REPO}}
-          ./deployment-scripts/deploy.sh
+          cd luci-ros2-sdk
+          ./deployment-scripts/build-docs.sh
         shell: bash
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          DIGITAL_INT_BRANCH: main
-          MESSAGE_BRANCH: main
-          KEYBOARD_BRANCH: main
-          GRPC_BRANCH: main
-          TRANSFORMS_BRANCH: main
-          THIRD_PARTY_BRANCH: main
-          DOCS_BRANCH: main
-          DOCS_REPO: ${{vars.DOCS_REPO}}
-          DOCS_ACCOUNT: ${{vars.DOCS_ACCOUNT}} # Push the docs to what ever docs repo is set in the sdk repo secrets (staging or main)
           BUILD_TYPE: ${{env.BUILD_TYPE}}
           REF_NAME: ${{github.ref_name}}
+          DOCS_REPO: ${{vars.DOCS_REPO}}
