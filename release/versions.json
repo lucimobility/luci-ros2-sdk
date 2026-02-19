@@ -3,7 +3,7 @@
         "version": "v2.0.0"
     },
     "grpc": {
-        "version": "v2.0.2"
+        "version": "v2.0.3"
     },
     "keyboard_teleop": {
         "version": "v2.0.1"
