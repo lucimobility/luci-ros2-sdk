@@ -8,7 +8,7 @@ Individual package repositories also use this docker image for their CI/CD pipel
 
 ## Building
 
-This docker container is used for LUCI engineers to develop and edit the ROS2 packages included in the SDK. If you are a research institute or private party that wants to just run the ROS2 packages provided in this SDK but does not need to edit them please refer to the getting started instructions at <https://sdk.luci-guci.com/ros2/docs/>.
+This docker container is used for LUCI engineers to develop and edit the ROS2 packages included in the SDK. If you are a research institute or private party that wants to just run the ROS2 packages provided in this SDK but does not need to edit them please refer to the getting started instructions at <https://sdk.luci.com/ros2/docs/>.
 
 ## Building manually
 

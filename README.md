@@ -4,7 +4,7 @@
 
 This is the public repo for the LUCI ROS2 SDK.
 
-All documentation for examples, packages, and use lives at <https://sdk.luci-guci.com/ros2/docs/>
+All documentation for examples, packages, and use lives at <https://sdk.luci.com/ros2/docs/>
 
 ## Docker Images
 

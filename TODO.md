@@ -1,8 +1,18 @@
-# TODO: SDK site migration (JFrog Artifactory → sdk.luci-guci.com)
+# TODO: SDK site migration (JFrog Artifactory → sdk.luci.com)
 
-Remaining work to move the SDK docs, apt repository and Docker images off JFrog Artifactory and GitHub Pages. The site itself (S3 + CloudFront) is defined in `aws-cdk/lib/sdk-site-stack.ts` in [aws-dev-infrastructure](https://github.com/lucimobility/aws-dev-infrastructure) and is already deployed. Delete this file once everything below is checked off.
+Remaining work to move the SDK docs, apt repository and Docker images off JFrog Artifactory and GitHub Pages, onto <https://sdk.luci.com>. The site (S3 + CloudFront) is defined in `aws-cdk/lib/sdk-site-stack.ts` in [aws-dev-infrastructure](https://github.com/lucimobility/aws-dev-infrastructure). Delete this file once everything below is checked off.
 
-## Before merging
+Every PR in this migration assumes `sdk.luci.com` is live before anything merges. `sdk.luci-guci.com` was only a test deployment and is removed once `sdk.luci.com` serves the site.
+
+## 1. DNS and infrastructure
+
+- [ ] Deploy `sdk-site-zone-stack` from the aws-dev-infrastructure PR. It creates the `sdk.luci.com` hosted zone and outputs its `name-servers`.
+- [ ] Have the luci.com DNS admin add four `NS` records for `sdk` pointing at those name servers. Check with `dig NS sdk.luci.com`.
+- [ ] Once the delegation resolves, deploy `sdk-site-certificate-stack`, then `sdk-site-stack`. The distribution and DNS records move to `sdk.luci.com`; the bucket, its contents and the IAM roles stay.
+- [ ] Delete the old `sdk-site-cert-stack` in us-east-1, which removes the `sdk.luci-guci.com` certificate.
+- [ ] Check <https://sdk.luci.com/>, <https://sdk.luci.com/ros2/docs/> and `https://sdk.luci.com/ros2/apt/dists/jammy/InRelease`.
+
+## 2. Settings
 
 - [ ] **Archive signing key.** The repository is currently signed with a temporary test key. Generate the real key and set this repo's `APT_ARCHIVE_SIGNING_KEY` and `APT_ARCHIVE_PASSPHRASE` secrets, following [apt/README.md](apt/README.md#archive-signing-key).
 - [ ] **Actions variables on luci-ros2-sdk**, from the `sdk-site-stack` outputs:
@@ -16,41 +26,58 @@ Remaining work to move the SDK docs, apt repository and Docker images off JFrog 
 - [ ] **GHCR access.** On the `luci-ros2-sdk` and `luci-sdk-development-image` packages, under Package settings → Manage Actions access, give `luci-ros2-sdk` the **Write** role so `Create and Deploy Docker` can push.
 - [ ] **Unused GHCR package.** Delete the `sdk-docs-deployment` package; the docs workflows no longer use a container.
 
-## Merge order
+## 3. Merge order
 
-1. [ ] aws-dev-infrastructure: `sdk-site` branch (already deployed from the branch)
-2. [ ] luci-sdk-docs. It has to go before luci-ros2-sdk: merging luci-ros2-sdk starts `Create Next Documentation`, which builds with luci-sdk-docs' `main` config and would publish pages with the old `/luci-sdk-docs/` base URL.
-3. [ ] luci-ros2-sdk (this PR)
-4. [ ] Package repos: luci-ros2-msgs, luci-ros2-grpc, luci-ros2-transforms, luci-ros2-third-party, luci-ros2-keyboard-teleop
-5. [ ] encoder-to-odom-library: `remove-conan` (can merge at any point)
+1. [ ] aws-dev-infrastructure: the SDK site PR (after its stacks are deployed in step 1).
+2. [ ] luci-sdk-docs: the site migration PR, then the branding PR stacked on it. Both have to be on `main` before luci-ros2-sdk merges, because merging luci-ros2-sdk starts `Create Next Documentation`, which builds with luci-sdk-docs' `main` config.
+3. [ ] luci-ros2-sdk: this PR, then the landing page PR stacked on it.
+4. [ ] Package repos: luci-ros2-msgs, luci-ros2-grpc, luci-ros2-transforms, luci-ros2-third-party, luci-ros2-keyboard-teleop.
+5. [ ] encoder-to-odom-library: `remove-conan` (can merge at any point).
 
-## After merging
+Stacked PRs retarget to `main` automatically only if the branch under them is deleted when it merges.
 
-- [ ] Run `Publish Apt Index`. It re-signs the index with the real key. Anyone who added the test key has to download the key again.
-- [ ] Run `Create Next Documentation` and check <https://sdk.luci-guci.com/ros2/docs/next/>.
-- [ ] Run `Deploy Landing Page` and check <https://sdk.luci-guci.com/>.
-- [ ] Check that an old <https://lucimobility.github.io/luci-sdk-docs/> link redirects to the same page under `/ros2/docs/`.
+## 4. After merging
+
+- [ ] Run `Publish Apt Index`. It re-signs the index with the real key.
+- [ ] Run `Create Next Documentation` and check <https://sdk.luci.com/ros2/docs/next/>, including the new [Moving from JFrog](https://sdk.luci.com/ros2/docs/next/Installation/moving-from-jfrog) page.
+- [ ] Run `Deploy Landing Page` and check <https://sdk.luci.com/>.
+- [ ] Check that an old <https://lucimobility.github.io/luci-sdk-docs/> link redirects to the same page on `sdk.luci.com`.
 - [ ] Make a patch release of one package repo. Check that its `.deb` lands in the pool, that `Publish Apt Index` runs, and that `apt policy` shows the new version.
-- [ ] Release the SDK so the `luci-ros2-sdk` image on GHCR is rebuilt from `release/Dockerfile`, which installs from the new apt repository. The current GHCR images are copies of the JFrog ones and still install from Artifactory.
-- [ ] Replace the placeholder copy in `landing/index.html` with the final marketing text.
 
-## Move to sdk.luci.com
+## 5. Release and announce
 
-- [ ] In aws-dev-infrastructure, add a public hosted zone for `sdk.luci.com` and output its name servers.
-- [ ] Have the luci.com DNS admin add `NS` records for `sdk` pointing at those name servers.
-- [ ] Add `sdk.luci.com` to the certificate, the distribution's domain names and the alias records.
-- [ ] Replace `sdk.luci-guci.com` with `sdk.luci.com` across the SDK repos, including:
-  - `docusaurus.config.js` and the GitHub Pages redirect pages in luci-sdk-docs
-  - `release/Dockerfile`
-  - the docs, READMEs and `landing/`
-- [ ] Decide whether `sdk.luci-guci.com` keeps serving the site or redirects.
+- [ ] Release the SDK. `release-docs` publishes the docs with the Moving from JFrog page, and `Create and Deploy Docker` (RELEASE) rebuilds `ghcr.io/lucimobility/luci-ros2-sdk:latest` from `release/Dockerfile`, which installs from the new apt repository. The GHCR images until then are copies of the JFrog ones and still install from Artifactory.
+- [ ] In a clean Ubuntu 22.04 machine or container, follow the Moving from JFrog page from an old JFrog setup and check `apt update` and the pinned installs.
+- [ ] Send the announcement email below, with the release version filled in.
 
-## Retire JFrog
+### Announcement email
+
+> **Subject:** LUCI ROS2 SDK [version]: new home for packages, Docker images and docs
+>
+> Hi everyone,
+>
+> LUCI ROS2 SDK [version] is out, and with it the SDK has moved off JFrog Artifactory. Everything now lives at **https://sdk.luci.com**:
+>
+> - **Documentation:** https://sdk.luci.com/ros2/docs/ (old GitHub Pages links redirect there)
+> - **Apt repository:** https://sdk.luci.com/ros2/apt
+> - **Docker images:** `ghcr.io/lucimobility/luci-ros2-sdk` and `ghcr.io/lucimobility/luci-sdk-development-image` (public, no login needed)
+>
+> **What you need to do.** If you installed the SDK packages with apt, or use the LUCI Docker images, switch to the new locations: the old JFrog repository and images no longer get updates and will be shut down. Your installed packages don't need to be reinstalled; the new repository has every version that was on JFrog.
+>
+> - **Apt:** replace the old repository and key with the new ones, then run `sudo apt update`. The commands are on the Moving from JFrog page: https://sdk.luci.com/ros2/docs/Installation/moving-from-jfrog
+> - **Docker:** pull `ghcr.io/lucimobility/luci-ros2-sdk:latest` and replace `luci.jfrog.io/ros2-sdk-docker-local/` with `ghcr.io/lucimobility/` in your `docker run` commands, Dockerfiles and scripts.
+>
+> If anything doesn't work after switching, reply to this email or contact info@luci.com.
+>
+> Thanks,
+> The LUCI team
+
+## 6. Retire JFrog
 
 - [ ] Search the org for remaining `luci.jfrog.io` references.
 - [ ] Move luci-safety off the `luci-conan` remote. It still pulls `encoder-to-odom` from there with Conan.
 - [ ] Remove the `JF_URL` and `ARTIFACTORY_TOKEN` org secrets.
-- [ ] Delete the `ros2-sdk-packages`, `ros2-sdk-docker-local` and `luci-conan` repositories in Artifactory.
+- [ ] Delete the `ros2-sdk-packages`, `ros2-sdk-docker-local` and `luci-conan` repositories in Artifactory, after giving users time to switch following the announcement.
 
 ## Later
 
