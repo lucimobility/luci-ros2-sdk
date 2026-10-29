@@ -3,18 +3,55 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LUCI SDK</title>
-    <meta name="description" content="Software developer kits for building research and autonomy features on LUCI-enabled power wheelchairs.">
+    <title>LUCI SDK: the interface to LuciCore</title>
+    <meta name="description" content="The LUCI software development kit connects research teams, robot OEMs and robot brain companies to LuciCore, the safety layer that keeps machines moving safely among people.">
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="/assets/style.css">
+    <!-- Keep in step with the FAQ section below; search engines compare the two. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is LuciCore?",
+                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore is LUCI's safety layer. Its Nav, Safety and Sensors tiers take drive intent from any source and keep the machine moving safely among people. It has shipped on power wheelchairs since 2020 and is developed under IEC 62304."}
+            },
+            {
+                "@type": "Question",
+                "name": "What do I need to use the SDK?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Today the SDK runs against a LUCI Dev Kit, a LUCI-enabled power wheelchair running LuciCore Sandbox Edition, and a development machine with Ubuntu 22.04 and ROS2 Humble."}
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use Sandbox Edition commercially?",
+                "acceptedAnswer": {"@type": "Answer", "text": "No. Sandbox Edition is for research only. Commercial use of LuciCore goes through a paid design partnership; contact info@luci.com to start one."}
+            },
+            {
+                "@type": "Question",
+                "name": "Does it work with my robot?",
+                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore is built for any brain: the SDK carries drive intent, not trust, so a planner, a VLA model, teleop or a person can drive while LuciCore keeps the last word on safety. Today it ships on power wheelchairs. Talk to us about bringing it to your machine."}
+            },
+            {
+                "@type": "Question",
+                "name": "What hardware does LuciCore run on?",
+                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore runs on Linux. It is shipping on NXP i.MX and proven on NVIDIA Jetson. It can use your sensors or LUCI's reference sensor kit."}
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <header>
         <div class="wrap">
             <a href="/"><img src="/assets/sandbox-logo.png" alt="LUCI Sandbox" width="400" height="200"></a>
             <nav>
-                <a href="#ros2">ROS2 SDK</a>
-                <a href="#wdi">Wheelchair Digital Interface</a>
+                <a href="/ros2/docs/">ROS2 docs</a>
+                <a href="#sdk">LUCI SDK</a>
+                <a href="#lucicore">LuciCore</a>
+                <a href="#sandbox">Research Sandbox</a>
+                <a href="#partner">Partner with LUCI</a>
                 <a href="https://github.com/lucimobility">GitHub</a>
             </nav>
         </div>
@@ -22,75 +59,169 @@
 
     <main>
         <div class="wrap hero">
-            <h1>Build on LUCI</h1>
-            <p>LUCI's developer kits make LUCI sensor data and wheelchair control interfaces available to
-                research institutions and partners, so you can use a LUCI-enabled power wheelchair as a
-                platform for clinical research and new driving features.</p>
+            <h1>Build on LUCI's proven safety layer</h1>
+            <p>Your software says where to go. LuciCore keeps the machine moving safely among people. The LUCI
+                SDK gives research teams sensor data and drive intent on LUCI-enabled power wheelchairs today.</p>
             <div class="buttons">
                 <a class="button primary" href="/ros2/docs/">Get started with ROS2</a>
-                <a class="button secondary" href="#contact">Become a Sandbox Partner</a>
+                <a class="button secondary" href="#partner">Talk to us about integrating LuciCore</a>
             </div>
         </div>
 
-        <section>
+        <section id="lucicore">
             <div class="wrap">
-                <h2>What you can do</h2>
-                <ul class="features">
-                    <li><strong>Read sensor data</strong>Point clouds from LUCI's sensors, ready for ROS2 tools.</li>
-                    <li><strong>Track motion</strong>Odometry and joystick position from the wheelchair.</li>
-                    <li><strong>Drive autonomously</strong>Send joystick commands to the wheelchair from your own software.</li>
-                    <li><strong>Log for research</strong>Record driver behavior during clinical studies.</li>
-                </ul>
+                <h2>How it fits</h2>
+                <p class="note">LuciCore is LUCI's safety layer. Its Nav, Safety and Sensors tiers sit between your
+                    software and the motors: your software sends intent through the SDK, and LuciCore decides how
+                    the machine moves.</p>
+                <ol class="stack" aria-label="Data flow from your software to the motors">
+                    <li><strong>Your software</strong>Planner, VLA, teleop, or a person</li>
+                    <li><strong>LUCI SDK</strong>Drive intent and sensor data</li>
+                    <li class="core"><strong>LuciCore</strong><span class="tiers"><span>Nav</span><span>Safety</span><span>Sensors</span></span></li>
+                    <li><strong>Motors</strong>The machine moves</li>
+                </ol>
+                <p class="stack-caption">Intent crosses the seam, not trust. Safety has the last word.</p>
             </div>
         </section>
 
-        <section>
+        <section id="sdk">
             <div class="wrap">
-                <h2>Developer kits</h2>
+                <h2>LUCI SDK</h2>
+                <p class="note">One SDK, with an API for each kind of thing that crosses into LuciCore.</p>
+                <div class="table-scroll">
+                    <table class="api-table">
+                        <thead>
+                            <tr><th scope="col">API</th><th scope="col">What crosses it</th><th scope="col">Available through</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Drive intent</th>
+                                <td>Drive-path intent from any brain. LuciCore bounds it.</td>
+                                <td><a href="/ros2/docs/">ROS2 SDK</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sensor data</th>
+                                <td>Point clouds, odometry and joystick position, in and out.</td>
+                                <td><a href="/ros2/docs/">ROS2 SDK</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Input devices <span class="tag">Wheelchair only</span></th>
+                                <td>WDI input devices through the LuciLink Hub, including the Apple integration.</td>
+                                <td><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">WDI spec</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="cards">
-                    <article class="card" id="ros2">
+                    <article class="card">
                         <h3>ROS2 SDK</h3>
                         <p>ROS2 Humble packages with LUCI's message types, nodes and URDF, plus a ready-to-run
                             Docker image with everything installed.</p>
                         <ul>
                             <li><a href="/ros2/docs/">Documentation</a></li>
                             <li><a href="#install">Install with apt</a></li>
-                            <li><a href="https://github.com/lucimobility/luci-ros2-sdk/pkgs/container/luci-ros2-sdk">Docker image</a></li>
+                            <li><a href="https://github.com/orgs/lucimobility/packages/container/package/luci-ros2-sdk">Docker image</a></li>
                             <li><a href="https://github.com/lucimobility/luci-ros2-sdk">Source on GitHub</a></li>
                         </ul>
                     </article>
                     <article class="card" id="wdi">
                         <h3>Wheelchair Digital Interface</h3>
-                        <p>An open interface for connecting software and devices to power wheelchairs,
-                            developed with the Open Mobility Hub.</p>
+                        <p>The open interface for plugging input devices into a power wheelchair through the
+                            LuciLink Hub, developed with the Open Mobility Hub.</p>
                         <ul>
-                            <li><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">Source on GitHub</a></li>
+                            <li><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">Spec on GitHub</a></li>
                         </ul>
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="wrap">
+                <h2>What you can build</h2>
+                <ul class="features">
+                    <li><strong>Read sensor data</strong>Point clouds from LUCI's sensors, ready for ROS2 tools.</li>
+                    <li><strong>Track motion</strong>Odometry and joystick position from the machine.</li>
+                    <li><strong>Send drive intent</strong>From any brain: a planner, a VLA, teleop, or a person. LuciCore bounds it.</li>
+                    <li><strong>Log for research</strong>Record driver behavior during clinical studies.</li>
+                </ul>
             </div>
         </section>
 
         <section id="install">
             <div class="wrap">
                 <h2>Install the ROS2 packages</h2>
-                <p class="note">On Ubuntu 22.04 with ROS2 Humble, add the LUCI apt repository and install the
-                    packages you need. See the <a href="/ros2/docs/Installation/manual-installation">installation
+                <p class="note">The ROS2 SDK runs on Ubuntu 22.04 with ROS2 Humble on amd64. Add the LUCI apt
+                    repository and install the packages you need. See the <a href="/ros2/docs/Installation/manual-installation">installation
                     guide</a> for pinning the versions of an SDK release.</p>
 <pre><code>curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg &gt; /dev/null
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list &gt; /dev/null
 sudo apt update
 sudo apt install ros-humble-luci-messages ros-humble-luci-grpc-interface ros-humble-luci-transforms</code></pre>
+                <p class="note platforms">LuciCore runs on Linux, shipping on NXP i.MX, proven on NVIDIA Jetson.</p>
             </div>
         </section>
 
-        <section id="contact">
+        <section id="proof">
+            <div class="wrap">
+                <h2>Proved where a regulator makes you prove it</h2>
+                <ul class="stats">
+                    <li><strong>100,000+</strong>miles driven</li>
+                    <li><strong>400,000+</strong>hours of use <span class="estimate">(estimate)</span></li>
+                    <li><strong>16M</strong>close-quarters maneuvers <span class="estimate">(estimate)</span></li>
+                    <li><strong>Zero</strong>FDA-reportable adverse events</li>
+                    <li><strong>Since 2020</strong>shipping on power wheelchairs</li>
+                </ul>
+                <p class="note">Developed under IEC 62304.</p>
+            </div>
+        </section>
+
+        <section id="sandbox">
             <div class="wrap">
                 <div class="contact">
-                    <h2>Become a Sandbox Partner</h2>
-                    <p>The SDKs need a LUCI Dev Kit running LuciCore Sandbox Edition. To join the program,
-                        contact <a href="mailto:info@luci.com">info@luci.com</a>.</p>
+                    <h2>Research Sandbox</h2>
+                    <p>The ROS2 SDK runs against a LUCI Dev Kit: a LUCI-enabled power wheelchair running LuciCore
+                        Sandbox Edition. Sandbox Edition is for research, not commercial use. To join the program as
+                        a Sandbox Partner, contact <a href="mailto:info@luci.com">info@luci.com</a>.</p>
                 </div>
+            </div>
+        </section>
+
+        <section id="partner">
+            <div class="wrap">
+                <div class="contact partner">
+                    <h2>Moving to production, or building a robot?</h2>
+                    <p>LuciCore is designed to be brain-agnostic: bring your planner, model or teleop, and your
+                        sensors or ours. The Dev Kit's sensors are available as an optional reference kit. LUCI partners
+                        with OEMs and robot brain companies through paid design partnerships, which is also how
+                        research on Sandbox Edition moves to a licensed product.</p>
+                    <div class="buttons">
+                        <a class="button primary" href="mailto:info@luci.com?subject=Design%20partnership%20inquiry&amp;body=Tell%20us%20about%20your%20project%3A%0A%0A-%20Robot%20or%20machine%20type%3A%0A-%20Sensors%3A%0A-%20Compute%3A%0A-%20Build-vs-buy%20timing%3A%0A">Start a design partnership</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="wrap faq">
+                <h2>FAQ</h2>
+                <h3>What is LuciCore?</h3>
+                <p>LuciCore is LUCI's safety layer. Its Nav, Safety and Sensors tiers take drive intent from any
+                    source and keep the machine moving safely among people. It has shipped on power wheelchairs since
+                    2020 and is developed under IEC 62304.</p>
+                <h3>What do I need to use the SDK?</h3>
+                <p>Today the SDK runs against a LUCI Dev Kit, a LUCI-enabled power wheelchair running LuciCore
+                    Sandbox Edition, and a development machine with Ubuntu 22.04 and ROS2 Humble.</p>
+                <h3>Can I use Sandbox Edition commercially?</h3>
+                <p>No. Sandbox Edition is for research only. Commercial use of LuciCore goes through a paid design
+                    partnership; contact <a href="mailto:info@luci.com">info@luci.com</a> to start one.</p>
+                <h3>Does it work with my robot?</h3>
+                <p>LuciCore is built for any brain: the SDK carries drive intent, not trust, so a planner, a VLA
+                    model, teleop or a person can drive while LuciCore keeps the last word on safety. Today it ships
+                    on power wheelchairs. <a href="#partner">Talk to us</a> about bringing it to your machine.</p>
+                <h3>What hardware does LuciCore run on?</h3>
+                <p>LuciCore runs on Linux. It is shipping on NXP i.MX and proven on NVIDIA Jetson. It can use your
+                    sensors or LUCI's reference sensor kit.</p>
             </div>
         </section>
     </main>
