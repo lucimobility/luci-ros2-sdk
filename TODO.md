@@ -30,7 +30,7 @@ Every PR in this migration assumes `sdk.luci.com` is live before anything merges
 
 1. [ ] aws-dev-infrastructure: the SDK site PR (after its stacks are deployed in step 1).
 2. [ ] luci-sdk-docs: the site migration PR, then the branding PR stacked on it. Both have to be on `main` before luci-ros2-sdk merges, because merging luci-ros2-sdk starts `Create Next Documentation`, which builds with luci-sdk-docs' `main` config.
-3. [ ] luci-ros2-sdk: this PR, then the landing page PR stacked on it.
+3. [ ] luci-ros2-sdk: this PR.
 4. [ ] Package repos: luci-ros2-msgs, luci-ros2-grpc, luci-ros2-transforms, luci-ros2-third-party, luci-ros2-keyboard-teleop.
 5. [ ] encoder-to-odom-library: `remove-conan` (can merge at any point).
 
