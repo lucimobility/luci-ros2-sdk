@@ -6,7 +6,7 @@ slug: /
 
 # LUCI ROS2 Software Development Kit
 
-The tools in this SDK make LUCI sensor information and control interfaces available to organizations and leading research institutions, allowing them to use LUCI as a research tool. The SDK talks to LuciCore, LUCI's safety layer: your software sends drive intent, and LuciCore decides how the machine moves. To use the SDK you need a LUCI Dev Kit (a LUCI enabled wheelchair) updated to LuciCore Sandbox Edition, Version 3.0.5 or greater. If you are interested in becoming a Sandbox Partner, contact <info@luci.com>.
+The tools in this SDK make LUCI sensor information and control interfaces available to organizations and leading research institutions, allowing them to use LUCI as a research tool. The SDK talks to LuciCore, LUCI's safety layer: your software sends drive intent, and LuciCore decides how the machine moves safely. To use the SDK you need a LUCI Dev Kit (a LUCI enabled wheelchair) updated to LuciCore Sandbox Edition, Version 3.0.5 or greater. If you are interested in becoming a Sandbox Partner, contact <info@luci.com>.
 
 ## Overview
 

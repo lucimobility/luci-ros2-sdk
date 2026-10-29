@@ -31,12 +31,12 @@
             {
                 "@type": "Question",
                 "name": "Does it work with my robot?",
-                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore is built for any brain: the SDK carries drive intent, not trust, so a planner, a VLA model, teleop or a person can drive while LuciCore keeps the last word on safety. Today it ships on power wheelchairs. Talk to us about bringing it to your machine."}
+                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore is built for any brain. The SDK carries only drive intent, so a planner, a VLA model, teleop or a person can drive while LuciCore has the final say on safety. Today it ships on power wheelchairs. Talk to us about bringing it to your machine."}
             },
             {
                 "@type": "Question",
                 "name": "What hardware does LuciCore run on?",
-                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore runs on Linux. It is shipping on NXP i.MX and proven on NVIDIA Jetson. It can use your sensors or LUCI's reference sensor kit."}
+                "acceptedAnswer": {"@type": "Answer", "text": "LuciCore runs on a combination of Linux and real-time processors. It uses very little compute and can be tailored to fit most robotics compute platforms. Today it ships on NXP i.MX and is proven on NVIDIA Jetson. It can use your sensors or LUCI's reference sensor kit."}
             }
         ]
     }
@@ -73,14 +73,14 @@
                 <h2>How it fits</h2>
                 <p class="note">LuciCore is LUCI's safety layer. Its Nav, Safety and Sensors tiers sit between your
                     software and the motors: your software sends intent through the SDK, and LuciCore decides how
-                    the machine moves.</p>
+                    the machine moves safely.</p>
                 <ol class="stack" aria-label="Data flow from your software to the motors">
                     <li><strong>Your software</strong>Planner, VLA, teleop, or a person</li>
                     <li><strong>LUCI SDK</strong>Drive intent and sensor data</li>
                     <li class="core"><strong>LuciCore</strong><span class="tiers"><span>Nav</span><span>Safety</span><span>Sensors</span></span></li>
                     <li><strong>Motors</strong>The machine moves</li>
                 </ol>
-                <p class="stack-caption">Intent crosses the seam, not trust. Safety has the last word.</p>
+                <p class="stack-caption">Any brain can drive. LuciCore always has the final say on safety.</p>
             </div>
         </section>
 
@@ -101,12 +101,12 @@
                             </tr>
                             <tr>
                                 <th scope="row">Sensor data</th>
-                                <td>Point clouds, odometry and joystick position, in and out.</td>
+                                <td>Point clouds, odometry and joystick position, in and out. Raw from the sensors, or filtered and processed by LUCI's proprietary algorithms, such as step and drop-off detection.</td>
                                 <td><a href="/ros2/docs/">ROS2 SDK</a></td>
                             </tr>
                             <tr>
                                 <th scope="row">Input devices <span class="tag">Wheelchair only</span></th>
-                                <td>WDI input devices through the LuciLink Hub, including the Apple integration.</td>
+                                <td>Drive input from devices such as game controllers, adaptive controllers and Apple Vision Pro, connected through the LuciLink Hub.</td>
                                 <td><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">WDI spec</a></td>
                             </tr>
                         </tbody>
@@ -126,8 +126,9 @@
                     </article>
                     <article class="card" id="wdi">
                         <h3>Wheelchair Digital Interface</h3>
-                        <p>The open interface for plugging input devices into a power wheelchair through the
-                            LuciLink Hub, developed with the Open Mobility Hub.</p>
+                        <p>The open interface, developed with the Open Mobility Hub, that lets input devices such as
+                            game controllers, adaptive controllers and Apple Vision Pro drive a power wheelchair
+                            through the LuciLink Hub.</p>
                         <ul>
                             <li><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">Spec on GitHub</a></li>
                         </ul>
@@ -140,7 +141,7 @@
             <div class="wrap">
                 <h2>What you can build</h2>
                 <ul class="features">
-                    <li><strong>Read sensor data</strong>Point clouds from LUCI's sensors, ready for ROS2 tools.</li>
+                    <li><strong>Read sensor data</strong>Raw point clouds from LUCI's sensors, or data filtered and processed by LUCI's proprietary algorithms, ready for ROS2 tools.</li>
                     <li><strong>Track motion</strong>Odometry and joystick position from the machine.</li>
                     <li><strong>Send drive intent</strong>From any brain: a planner, a VLA, teleop, or a person. LuciCore bounds it.</li>
                     <li><strong>Log for research</strong>Record driver behavior during clinical studies.</li>
@@ -158,7 +159,9 @@
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list &gt; /dev/null
 sudo apt update
 sudo apt install ros-humble-luci-messages ros-humble-luci-grpc-interface ros-humble-luci-transforms</code></pre>
-                <p class="note platforms">LuciCore runs on Linux, shipping on NXP i.MX, proven on NVIDIA Jetson.</p>
+                <p class="note platforms">LuciCore runs on Linux together with real-time processors, needs little compute, and can
+                    be tailored to most robotics compute platforms. It ships today on NXP i.MX and is proven on NVIDIA
+                    Jetson.</p>
             </div>
         </section>
 
@@ -193,8 +196,8 @@ sudo apt install ros-humble-luci-messages ros-humble-luci-grpc-interface ros-hum
                     <h2>Moving to production, or building a robot?</h2>
                     <p>LuciCore is designed to be brain-agnostic: bring your planner, model or teleop, and your
                         sensors or ours. The Dev Kit's sensors are available as an optional reference kit. LUCI partners
-                        with OEMs and robot brain companies through paid design partnerships, which is also how
-                        research on Sandbox Edition moves to a licensed product.</p>
+                        with OEMs and robot brain companies through paid design partnerships. Research teams ready
+                        to turn Sandbox work into a product take the same path.</p>
                     <div class="buttons">
                         <a class="button primary" href="mailto:info@luci.com?subject=Design%20partnership%20inquiry&amp;body=Tell%20us%20about%20your%20project%3A%0A%0A-%20Robot%20or%20machine%20type%3A%0A-%20Sensors%3A%0A-%20Compute%3A%0A-%20Build-vs-buy%20timing%3A%0A">Start a design partnership</a>
                     </div>
@@ -216,12 +219,13 @@ sudo apt install ros-humble-luci-messages ros-humble-luci-grpc-interface ros-hum
                 <p>No. Sandbox Edition is for research only. Commercial use of LuciCore goes through a paid design
                     partnership; contact <a href="mailto:info@luci.com">info@luci.com</a> to start one.</p>
                 <h3>Does it work with my robot?</h3>
-                <p>LuciCore is built for any brain: the SDK carries drive intent, not trust, so a planner, a VLA
-                    model, teleop or a person can drive while LuciCore keeps the last word on safety. Today it ships
+                <p>LuciCore is built for any brain. The SDK carries only drive intent, so a planner, a VLA model,
+                    teleop or a person can drive while LuciCore has the final say on safety. Today it ships
                     on power wheelchairs. <a href="#partner">Talk to us</a> about bringing it to your machine.</p>
                 <h3>What hardware does LuciCore run on?</h3>
-                <p>LuciCore runs on Linux. It is shipping on NXP i.MX and proven on NVIDIA Jetson. It can use your
-                    sensors or LUCI's reference sensor kit.</p>
+                <p>LuciCore runs on a combination of Linux and real-time processors. It uses very little compute and
+                    can be tailored to fit most robotics compute platforms. Today it ships on NXP i.MX and is proven on
+                    NVIDIA Jetson. It can use your sensors or LUCI's reference sensor kit.</p>
             </div>
         </section>
     </main>
