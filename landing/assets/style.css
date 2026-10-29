@@ -230,6 +230,151 @@ pre {
     color: var(--muted);
 }
 
+.contact .buttons {
+    margin-top: 20px;
+}
+
+.stack {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin: 24px 0 12px;
+    padding: 0;
+    list-style: none;
+}
+
+.stack li {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.stack li strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.05rem;
+}
+
+.stack li.core {
+    border: 2px solid var(--accent);
+}
+
+.stack li + li::before {
+    content: '→';
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.tiers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.tiers span,
+.tag {
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 8px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stack-caption {
+    font-weight: 600;
+    margin: 0;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    margin-bottom: 24px;
+}
+
+.api-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.api-table th,
+.api-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.api-table tbody tr:last-child > * {
+    border-bottom: none;
+}
+
+.api-table thead th {
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.api-table td {
+    color: var(--muted);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.stats li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    color: var(--muted);
+}
+
+.stats strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.estimate {
+    font-size: 0.85rem;
+}
+
+.platforms {
+    margin-top: 16px;
+}
+
+.faq h3 {
+    margin: 20px 0 4px;
+    font-size: 1.1rem;
+}
+
+.faq p {
+    color: var(--muted);
+    margin: 0;
+    max-width: 75ch;
+}
+
 footer {
     padding: 32px 0 48px;
     color: var(--muted);
@@ -256,6 +401,20 @@ footer {
     justify-content: center;
 }
 
+@media (max-width: 800px) {
+    .stack {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .stack li + li::before {
+        content: '↓';
+        left: 50%;
+        top: -26px;
+        transform: translateX(-50%);
+    }
+}
+
 @media (max-width: 560px) {
     header .wrap {
         flex-direction: column;
@@ -265,5 +424,33 @@ footer {
     .hero {
         padding-top: 48px;
         padding-bottom: 32px;
+    }
+
+    /* Each API row becomes its own block; three columns don't fit at phone width. */
+    .api-table thead {
+        display: none;
+    }
+
+    .api-table,
+    .api-table tbody,
+    .api-table tr,
+    .api-table th,
+    .api-table td {
+        display: block;
+    }
+
+    .api-table tr {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .api-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .api-table th,
+    .api-table td {
+        padding: 2px 0;
+        border-bottom: none;
     }
 }
