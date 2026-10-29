@@ -4,7 +4,7 @@
 
 This is the public repo for the LUCI ROS2 SDK.
 
-All documentation for examples, packages, and use lives at <https://lucimobility.github.io/luci-sdk-docs/>
+All documentation for examples, packages, and use lives at <https://sdk.luci-guci.com/ros2/docs/>
 
 ## Docker Images
 
@@ -51,7 +51,7 @@ When an update has occurred to one of the SDK packages and a new version of the 
    - It is okay to not put out versions until multiple changes have happened to the code.
 2. Once the version increment is merged you simply need to create an official release in github.
    - This should trigger an action to auto run called `Create Release Documentation` which you can monitor in the github actions panel. This should generate a new release tab on the documentation site.
-3. Then to release the dev and public docker images go to github actions panel and run the `Create and Deploy Docker` action making sure to select both images. This should grab the released code, build the docker images for public use and push them to jrog artifactory.  
+3. Then to release the dev and public docker images go to github actions panel and run the `Create and Deploy Docker` action making sure to select both images. This should grab the released code, build the docker images for public use and push them to the GitHub Container Registry (ghcr.io).  
 
 If everything went smoothly congratulations the new docker images with packages and docs will be released and publicly distributable.
 

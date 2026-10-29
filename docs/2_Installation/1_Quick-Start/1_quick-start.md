@@ -22,7 +22,7 @@ If you don't have docker, you can install it by following instructions here: [In
 
 ## Pull down the latest LUCI ROS2 SDK docker image
 
-`docker pull luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest`
+`docker pull ghcr.io/lucimobility/luci-ros2-sdk:latest`
 
 ## Using the Container
 
@@ -40,7 +40,7 @@ sudo docker run -d -it \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $XAUTHORITY:/root/.Xauthority \
     -p 8765:8765 \
-    luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest
+    ghcr.io/lucimobility/luci-ros2-sdk:latest
 ```
 
 The container will now be running in the background and will not shut down unless explicitly told to shut down.
@@ -124,5 +124,5 @@ sudo docker run -d -it \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $XAUTHORITY:/root/.Xauthority \
     -p 8765:8765 \
-    luci.jfrog.io/ros2-sdk-docker-local/luci-ros2-sdk:latest
+    ghcr.io/lucimobility/luci-ros2-sdk:latest
 ```

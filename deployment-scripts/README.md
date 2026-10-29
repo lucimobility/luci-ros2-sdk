@@ -1,27 +1,6 @@
 # Deployment Scripts
 
-This folder is used by Github actions to auto build the SDK documentation that is hosted at <https://lucimobility.github.io/luci-sdk-docs/>
+This folder holds the scripts the `next-docs` and `release-docs` github actions run to build the SDK documentation that is hosted at <https://sdk.luci-guci.com/ros2/docs/>. The actions run them directly on the GitHub runner, using the Node version set by `actions/setup-node` in the workflow.
 
-## Building
-
-This docker container is by github actions to build the docs site. Building should only be needed if updating tools needed for docs generation.
-
-## Building manually
-
-In order to build this docker file please run the following commands
-
-1. git clone this repository
-2. `cd deployment-scripts`
-3. `docker build -t luci.jfrog.io/ros2-sdk-docker-local/sdk-docs-deployment:latest .`
-
-## Using (FOR LUCI EMPLOYEES)
-
-In order for this image to be used in the github actions it needs to be uploaded to the artifactory in jfrog.
-`docker push luci.jfrog.io/ros2-sdk-docker-local/sdk-docs-deployment:latest`
-
-## Scripts
-
-This folder also contains two scripts that the `release-docs` github action actually runs on top of this image:
-
-- `build-docs.sh` - clones the repos that contribute documentation content (`luci-ros2-grpc`, `luci-ros2-msgs`, `luci-ros2-transforms`, `luci-ros2-keyboard-teleop`, `luci-ros2-third-party`, and the docs site repo) and builds the Docusaurus site from them.
-- `deploy.sh` - deploys the built site.
+- `build-docs.sh` - gathers the docs from the repos the action has checked out (`luci-ros2-grpc`, `luci-ros2-msgs`, `luci-ros2-transforms`, `luci-ros2-keyboard-teleop`, `luci-ros2-third-party`, and the docs site repo), builds the Docusaurus site from them, and pushes the source changes (and, for a release, the new docs version) back to the docs site repo.
+- `publish-docs.sh` - uploads the built site to the SDK site's S3 bucket under `ros2/docs/` and clears the CloudFront cache for it.

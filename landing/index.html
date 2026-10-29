@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LUCI SDK</title>
+    <meta name="description" content="Software developer kits for building research and autonomy features on LUCI-enabled power wheelchairs.">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <a href="/"><img src="/assets/sandbox-logo.png" alt="LUCI Sandbox" width="400" height="200"></a>
+            <nav>
+                <a href="#ros2">ROS2 SDK</a>
+                <a href="#wdi">Wheelchair Digital Interface</a>
+                <a href="https://github.com/lucimobility">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrap hero">
+            <h1>Build on LUCI</h1>
+            <p>LUCI's developer kits make LUCI sensor data and wheelchair control interfaces available to
+                research institutions and partners, so you can use a LUCI-enabled power wheelchair as a
+                platform for clinical research and new driving features.</p>
+            <div class="buttons">
+                <a class="button primary" href="/ros2/docs/">Get started with ROS2</a>
+                <a class="button secondary" href="#contact">Become a Sandbox Partner</a>
+            </div>
+        </div>
+
+        <section>
+            <div class="wrap">
+                <h2>What you can do</h2>
+                <ul class="features">
+                    <li><strong>Read sensor data</strong>Point clouds from LUCI's sensors, ready for ROS2 tools.</li>
+                    <li><strong>Track motion</strong>Odometry and joystick position from the wheelchair.</li>
+                    <li><strong>Drive autonomously</strong>Send joystick commands to the wheelchair from your own software.</li>
+                    <li><strong>Log for research</strong>Record driver behavior during clinical studies.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="wrap">
+                <h2>Developer kits</h2>
+                <div class="cards">
+                    <article class="card" id="ros2">
+                        <h3>ROS2 SDK</h3>
+                        <p>ROS2 Humble packages with LUCI's message types, nodes and URDF, plus a ready-to-run
+                            Docker image with everything installed.</p>
+                        <ul>
+                            <li><a href="/ros2/docs/">Documentation</a></li>
+                            <li><a href="#install">Install with apt</a></li>
+                            <li><a href="https://github.com/lucimobility/luci-ros2-sdk/pkgs/container/luci-ros2-sdk">Docker image</a></li>
+                            <li><a href="https://github.com/lucimobility/luci-ros2-sdk">Source on GitHub</a></li>
+                        </ul>
+                    </article>
+                    <article class="card" id="wdi">
+                        <h3>Wheelchair Digital Interface</h3>
+                        <p>An open interface for connecting software and devices to power wheelchairs,
+                            developed with the Open Mobility Hub.</p>
+                        <ul>
+                            <li><a href="https://github.com/Open-Mobility-Hub/wheelchair-digital-interface">Source on GitHub</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="install">
+            <div class="wrap">
+                <h2>Install the ROS2 packages</h2>
+                <p class="note">On Ubuntu 22.04 with ROS2 Humble, add the LUCI apt repository and install the
+                    packages you need. See the <a href="/ros2/docs/Installation/manual-installation">installation
+                    guide</a> for pinning the versions of an SDK release.</p>
+<pre><code>curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg &gt; /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list &gt; /dev/null
+sudo apt update
+sudo apt install ros-humble-luci-messages ros-humble-luci-grpc-interface ros-humble-luci-transforms</code></pre>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="wrap">
+                <div class="contact">
+                    <h2>Become a Sandbox Partner</h2>
+                    <p>The SDKs need a LUCI Dev Kit running LuciCore Sandbox Edition. To join the program,
+                        contact <a href="mailto:info@luci.com">info@luci.com</a>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">Copyright © LUCI Mobility, Inc.</div>
+    </footer>
+</body>
+</html>
