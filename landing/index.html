@@ -96,7 +96,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Sensor data</th>
-                                <td>Point clouds, odometry and joystick position, in and out. Raw from the sensors, or filtered and processed by LUCI's proprietary algorithms, such as step and drop-off detection.</td>
+                                <td>Point clouds, odometry and joystick position, in and out. Raw from the sensors, or filtered and processed by LUCI's proprietary algorithms, such as collision and drop-off detection.</td>
                                 <td><a href="/ros2/docs/">ROS2 SDK</a></td>
                             </tr>
                             <tr>
@@ -136,10 +136,26 @@
             <div class="wrap">
                 <h2>What you can build</h2>
                 <ul class="features">
-                    <li><strong>Read sensor data</strong>Raw point clouds from LUCI's sensors, or data filtered and processed by LUCI's proprietary algorithms, ready for ROS2 tools.</li>
-                    <li><strong>Track motion</strong>Odometry and joystick position from the machine.</li>
-                    <li><strong>Send drive intent</strong>From any brain: a planner, a VLA, teleop, or a person. LuciCore bounds it.</li>
-                    <li><strong>Log for research</strong>Record driver behavior during clinical studies.</li>
+                    <li><strong>Advanced driver assistance</strong>Research partners are building features that
+                        read the driver's joystick and LUCI's sensors and refine the drive input in real time, while
+                        LuciCore keeps the final say on safety.
+                        <a href="/ros2/docs/Examples/examples">Read and send data</a></li>
+                    <li><strong>Autonomous crowd navigation</strong>Research partners are developing navigation
+                        that plans paths among moving people from LUCI's sensor streams and sends them as drive
+                        intent for LuciCore to bound.
+                        <a href="/ros2/docs/Examples/slam">Mapping and navigation notes</a></li>
+                    <li><strong>Map a building with SLAM</strong>Research partners have mapped spaces with
+                        slam_toolbox and gmapping using only LUCI's sensor streams.
+                        <a href="/ros2/docs/Examples/slam">SLAM notes</a></li>
+                    <li><strong>Plug in a navigation stack</strong>Turn standard ROS2 velocity commands into LUCI
+                        drive input with a small converter node, and let LuciCore keep it safe.
+                        <a href="/ros2/docs/Examples/slam#js-to-twist-message">Converter approaches</a></li>
+                    <li><strong>See what LUCI sees</strong>Stream every sensor's point cloud into rviz2 or Foxglove
+                        Studio with a few commands.
+                        <a href="/ros2/docs/Examples/examples#example-1-receive-data-from-luci">Example 1</a></li>
+                    <li><strong>Drive from your own code</strong>Start with the keyboard teleop node, then swap in
+                        your own planner or controller.
+                        <a href="/ros2/docs/Examples/examples#example-2-send-data-to-luci">Example 2</a></li>
                 </ul>
             </div>
         </section>
