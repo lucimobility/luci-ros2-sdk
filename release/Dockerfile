@@ -44,9 +44,9 @@ RUN apt update \
     && apt install -y ros-humble-desktop
 
 # Add LUCI repo
-RUN curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg \
+RUN curl -fsSL https://sdk.luci.com/ros2/apt/luci-ros2-archive-keyring.gpg \
     -o /usr/share/keyrings/luci-ros2-archive-keyring.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci.com/ros2/apt jammy main" \
     > /etc/apt/sources.list.d/luci-ros2.list && \
     apt update
 

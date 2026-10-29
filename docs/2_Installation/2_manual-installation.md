@@ -125,13 +125,15 @@ Each package is published to an apt repository upon release and is added by firs
 
 If this is your first time using the LUCI ROS2 SDK repository you need to first add the repo and gpg key to you system. This informs your computer that the LUCI .deb packages exist and can be installed.
 
+If you added the repository before it moved off JFrog, follow [Moving from JFrog](./3_moving-from-jfrog.md) instead.
+
 ### Add the GPG key
 
-`curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg > /dev/null`
+`curl -fsSL https://sdk.luci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg > /dev/null`
 
 ### Add the debian repository to sources file
 
-`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list > /dev/null`
+`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list > /dev/null`
 
 ### Install the package
 
@@ -168,7 +170,7 @@ Installed-Size: 1185 kB
 Depends: libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libpython3.10 (>= 3.10.0), libstdc++6 (>= 5.2), ros-humble-fastcdr, ros-humble-rosidl-default-runtime, ros-humble-std-msgs
 Download-Size: 84.7 kB
 APT-Manual-Installed: yes
-APT-Sources: https://sdk.luci-guci.com/ros2/apt jammy/main amd64 Packages
+APT-Sources: https://sdk.luci.com/ros2/apt jammy/main amd64 Packages
 Description: Custom Luci message types
 
 ```
