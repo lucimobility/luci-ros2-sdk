@@ -22,6 +22,8 @@ If you don't have docker, you can install it by following instructions here: [In
 
 ## Pull down the latest LUCI ROS2 SDK docker image
 
+If you used the image from `luci.jfrog.io` before, see [Moving from JFrog](../3_moving-from-jfrog.md) to switch to the new one.
+
 `docker pull ghcr.io/lucimobility/luci-ros2-sdk:latest`
 
 ## Using the Container

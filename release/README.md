@@ -7,7 +7,7 @@ Researchers use this Docker image to run the SDK.
 ## Building
 
 To use this image prebuilt please refer to the getting started instructions at
-<https://sdk.luci-guci.com/ros2/docs/>
+<https://sdk.luci.com/ros2/docs/>
 
 ## Building manually
 

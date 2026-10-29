@@ -1,6 +1,6 @@
 # LUCI SDK Landing Page
 
-The landing page at <https://sdk.luci-guci.com/>, which links to each LUCI SDK component. It lives in this repo until the SDK repos are consolidated. It is plain HTML and CSS with no build step: preview it with any static file server, for example `python3 -m http.server` from this folder.
+The landing page at <https://sdk.luci.com/>, which links to each LUCI SDK component. It lives in this repo until the SDK repos are consolidated. It is plain HTML and CSS with no build step: preview it with any static file server, for example `python3 -m http.server` from this folder.
 
 The copy in `index.html` is a first draft adapted from the ROS2 SDK docs and is meant to be replaced with marketing's text.
 

@@ -1,6 +1,6 @@
 # LUCI ROS2 Apt Repository
 
-The LUCI ROS2 packages are served as an apt repository at <https://sdk.luci-guci.com/ros2/apt>, from the SDK site's S3 bucket behind CloudFront. The bucket and the IAM roles that write to it are defined in `aws-cdk/lib/sdk-site-stack.ts` in [aws-dev-infrastructure](https://github.com/lucimobility/aws-dev-infrastructure).
+The LUCI ROS2 packages are served as an apt repository at <https://sdk.luci.com/ros2/apt>, from the SDK site's S3 bucket behind CloudFront. The bucket and the IAM roles that write to it are defined in `aws-cdk/lib/sdk-site-stack.ts` in [aws-dev-infrastructure](https://github.com/lucimobility/aws-dev-infrastructure).
 
 ## How packages get published
 
@@ -12,8 +12,8 @@ Packages are never removed from the pool, so every released version stays instal
 ## Users
 
 ```bash
-curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg > /dev/null
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list > /dev/null
+curl -fsSL https://sdk.luci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg > /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list > /dev/null
 sudo apt update
 ```
 
