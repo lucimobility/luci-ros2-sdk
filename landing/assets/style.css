@@ -332,33 +332,9 @@ pre {
     color: var(--muted);
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 16px;
-    margin: 0 0 16px;
-    padding: 0;
-    list-style: none;
-}
 
-.stats li {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    color: var(--muted);
-}
 
-.stats strong {
-    display: block;
-    color: var(--text);
-    font-size: 1.8rem;
-    line-height: 1.2;
-}
 
-.estimate {
-    font-size: 0.85rem;
-}
 
 .platforms {
     margin-top: 16px;
