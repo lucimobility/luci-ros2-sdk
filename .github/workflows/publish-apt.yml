@@ -1,0 +1,47 @@
+name: Publish Apt Index
+
+# Run by the package repos after they add a .deb to the pool. The nightly run catches a package
+# whose dispatch was lost.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+# Each run rebuilds the whole index, so a queued run never needs to be cancelled, only kept from
+# overlapping the one before it.
+concurrency:
+  group: apt-index
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout SDK
+        uses: actions/checkout@v4
+
+      - name: Install apt-ftparchive
+        run: sudo apt-get update && sudo apt-get install -y apt-utils
+
+      - name: Import archive signing key
+        id: import
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.APT_ARCHIVE_SIGNING_KEY }}
+          passphrase: ${{ secrets.APT_ARCHIVE_PASSPHRASE }}
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: Publish the index
+        run: ./apt/publish-apt-index.sh
+        env:
+          SDK_SITE_BUCKET: ${{ vars.SDK_SITE_BUCKET }}
+          SDK_SITE_DISTRIBUTION_ID: ${{ vars.SDK_SITE_DISTRIBUTION_ID }}
+          KEY_ID: ${{ steps.import.outputs.keyid }}

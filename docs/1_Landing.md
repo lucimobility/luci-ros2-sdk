@@ -44,7 +44,7 @@ New tags will be released based on aggressiveness of the changes which may inclu
 
 Versioning is handled on a major.minor.patch method.
 
-As new features are added to individual ROS2 packages their individual repos will be tagged and binaries released to the public via a deb artifactory.
+As new features are added to individual ROS2 packages their individual repos will be tagged and binaries released to the public via the LUCI apt repository.
 
 **A new release of an individual package is not guaranteed to cause a release of a new SDK. It will likely be common practice to hold on a new SDK release until there are multiple changes to multiple packages.**
 

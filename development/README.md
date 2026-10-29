@@ -8,7 +8,7 @@ Individual package repositories also use this docker image for their CI/CD pipel
 
 ## Building
 
-This docker container is used for LUCI engineers to develop and edit the ROS2 packages included in the SDK. If you are a research institute or private party that wants to just run the ROS2 packages provided in this SDK but does not need to edit them please refer to the getting started instructions at <https://lucimobility.github.io/luci-sdk-docs/>.
+This docker container is used for LUCI engineers to develop and edit the ROS2 packages included in the SDK. If you are a research institute or private party that wants to just run the ROS2 packages provided in this SDK but does not need to edit them please refer to the getting started instructions at <https://sdk.luci-guci.com/ros2/docs/>.
 
 ## Building manually
 
@@ -47,7 +47,7 @@ ros_ws
 
 ## Building with provided script (FOR LUCI EMPLOYEES)
 
-There is also a provided script to build and deploy the docker image to jfrog.
+There is also a provided script to build and deploy the docker image to the GitHub Container Registry. Log in first with `docker login ghcr.io` using a GitHub token that has the `write:packages` scope.
 
 1. cd to the root of this directory
 2. To build the dev container (this one) run `./build-and-deploy-dockers.sh -d`
@@ -64,8 +64,8 @@ In order to use this docker image you can either
 
 If you dont need to edit the image and just need to use it then just pull it from the servers with
 
-1. `docker pull luci.jfrog.io/ros2-sdk-docker-local/luci-sdk-development-image:latest`
-2. `docker run -d -it -p 8765:8765 luci.jfrog.io/ros2-sdk-docker-local/luci-sdk-development-image:latest`
+1. `docker pull ghcr.io/lucimobility/luci-sdk-development-image:latest`
+2. `docker run -d -it -p 8765:8765 ghcr.io/lucimobility/luci-sdk-development-image:latest`
 
 If you need to edit the image and have followed the above build steps then run
 `docker run -d -it -p 8765:8765 luci-sdk-development-image:latest`

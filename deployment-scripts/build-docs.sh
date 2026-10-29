@@ -33,9 +33,8 @@ cp -r $KEYBOARD_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'Basic Teleop'
 cp -r $THIRD_PARTY_REPO/docs/ $DOCS_REPO/source_files/3_Packages/'Third Party'
 cp -r ../docs/* $DOCS_REPO/source_files/
 
-# Generate the static site
+# Generate the static site into $DOCS_REPO/build, which the workflow publishes
 cd $DOCS_REPO
-rm -rf docs
 
 if [[ $BUILD_TYPE == "production" ]];
 then 
@@ -43,13 +42,12 @@ then
 fi
 
 npm run build
-mv build docs
 
-# Push changes to Docs repo
+# Push the source changes (and any new version) to Docs repo; the built site isn't committed
 git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git config --local user.name "github-actions[bot]"
 git add .
-git commit -am "Updated Docs"
+git diff --cached --quiet || git commit -m "Updated Docs"
 
 if [[ $BUILD_TYPE == "production" ]];
 then 

@@ -12,7 +12,9 @@ env:
 jobs:
   documentation:
     runs-on: ubuntu-latest
-    container: luci.jfrog.io/ros2-sdk-docker-local/sdk-docs-deployment:latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       # Generate GitHub App token
       - name: Generate token from GitHub App
@@ -31,7 +33,7 @@ jobs:
             luci-sdk-docs
 
       - name: Checkout SDK Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: "main"
           path: ${{env.SDK_REPO}}
@@ -51,7 +53,7 @@ jobs:
           echo ${{env.packages_third_party_version}}
 
       - name: Checkout Messages
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/luci-ros2-msgs
           ref: ${{env.packages_messages_version}}
@@ -59,7 +61,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout GRPC
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/luci-ros2-grpc
           ref: ${{env.packages_grpc_version}}
@@ -67,7 +69,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout Transforms
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/luci-ros2-transforms
           ref: ${{env.packages_transforms_version}}
@@ -75,7 +77,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout Keyboard
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/luci-ros2-keyboard-teleop
           ref: ${{env.packages_keyboard_teleop_version}}
@@ -83,7 +85,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout Third Party
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/luci-ros2-third-party
           ref: ${{env.packages_third_party_version}}
@@ -91,12 +93,16 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout Docs
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: lucimobility/${{vars.DOCS_REPO}}
           ref: main
           path: ${{vars.DOCS_REPO}}
           token: ${{ steps.generate-token.outputs.token }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Clone and build docs
         run: |
@@ -107,3 +113,16 @@ jobs:
           BUILD_TYPE: ${{env.BUILD_TYPE}}
           REF_NAME: ${{github.ref_name}}
           DOCS_REPO: ${{vars.DOCS_REPO}}
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: Publish docs
+        run: |
+          cd ${{env.SDK_REPO}}
+          ./deployment-scripts/publish-docs.sh tmp/${{vars.DOCS_REPO}}/build
+        env:
+          SDK_SITE_BUCKET: ${{ vars.SDK_SITE_BUCKET }}
+          SDK_SITE_DISTRIBUTION_ID: ${{ vars.SDK_SITE_DISTRIBUTION_ID }}

@@ -1,0 +1,45 @@
+name: Deploy Landing Page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "landing/**"
+      - ".github/workflows/deploy-landing.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: landing
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-2
+
+      # The bucket root also holds each SDK component's prefix (ros2/, ...), so only the landing
+      # page's own files are written here, and nothing at the root is deleted.
+      - name: Upload the site
+        run: |
+          for file in index.html 404.html favicon.ico; do
+            aws s3 cp --only-show-errors "$file" "s3://${{ vars.SDK_SITE_BUCKET }}/$file"
+          done
+          aws s3 sync --only-show-errors --delete assets "s3://${{ vars.SDK_SITE_BUCKET }}/assets"
+
+      - name: Clear the CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${{ vars.SDK_SITE_DISTRIBUTION_ID }}" \
+            --paths "/" "/index.html" "/404.html" "/favicon.ico" "/assets/*" > /dev/null

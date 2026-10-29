@@ -127,11 +127,11 @@ If this is your first time using the LUCI ROS2 SDK repository you need to first 
 
 ### Add the GPG key
 
-`curl -fsSL https://luci.jfrog.io/artifactory/api/security/keypair/ros-humble-keys/public | sudo gpg --dearmor -o /usr/share/keyrings/ros2-sdk-packages.gpg`
+`curl -fsSL https://sdk.luci-guci.com/ros2/apt/luci-ros2-archive-keyring.gpg | sudo tee /usr/share/keyrings/luci-ros2-archive-keyring.gpg > /dev/null`
 
 ### Add the debian repository to sources file
 
-`echo "deb [signed-by=/usr/share/keyrings/ros2-sdk-packages.gpg] https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy private" | sudo tee /etc/apt/sources.list.d/ros2-sdk-packages.list > /dev/null`
+`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/luci-ros2-archive-keyring.gpg] https://sdk.luci-guci.com/ros2/apt jammy main" | sudo tee /etc/apt/sources.list.d/luci-ros2.list > /dev/null`
 
 ### Install the package
 
@@ -139,11 +139,11 @@ Once you have added the repo and gpg key for the LUCI ROS2 packages you can inst
 
 ```bash
 sudo apt update
-apt install ros-humble-luci-basic-teleop
-apt install ros-humble-luci-grpc-interface
-apt install ros-humble-luci-messages
-apt install ros-humble-luci-third-party
-apt install ros-humble-luci-transforms
+sudo apt install ros-humble-luci-basic-teleop
+sudo apt install ros-humble-luci-grpc-interface
+sudo apt install ros-humble-luci-messages
+sudo apt install ros-humble-luci-third-party
+sudo apt install ros-humble-luci-transforms
 ```
 
 After each install you should see it downloaded the version of the package that matches the version number listed in the versions.json file
@@ -168,7 +168,7 @@ Installed-Size: 1185 kB
 Depends: libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libpython3.10 (>= 3.10.0), libstdc++6 (>= 5.2), ros-humble-fastcdr, ros-humble-rosidl-default-runtime, ros-humble-std-msgs
 Download-Size: 84.7 kB
 APT-Manual-Installed: yes
-APT-Sources: https://luci.jfrog.io/artifactory/ros2-sdk-packages jammy/private amd64 Packages
+APT-Sources: https://sdk.luci-guci.com/ros2/apt jammy/main amd64 Packages
 Description: Custom Luci message types
 
 ```

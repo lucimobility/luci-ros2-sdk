@@ -17,23 +17,29 @@ on:
 
 env:
   REPO: ${{github.event.repository.name}}
-  JF_URL: ${{secrets.JF_URL}}
-  JF_ACCESS_TOKEN: ${{secrets.ARTIFACTORY_TOKEN}}
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   Build-and-deploy-dev:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.DEV == 'true' }}
     steps:
-      - uses: jfrog/setup-jfrog-cli@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout SDK Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           path: ${{env.REPO}}
 
       - name: Build and deploy dev
-        if: ${{ github.event.inputs.DEV == 'true'}}
         run: |
           cd ${{env.REPO}}
           ./build-and-deploy-dockers.sh -d
@@ -41,16 +47,21 @@ jobs:
 
   Build-and-deploy-release:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.RELEASE == 'true' }}
     steps:
-      - uses: jfrog/setup-jfrog-cli@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout SDK Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           path: ${{env.REPO}}
           
       - name: Build and deploy release
-        if: ${{ github.event.inputs.RELEASE == 'true' }}
         run: |
           cd ${{env.REPO}}
           ./build-and-deploy-dockers.sh -r
