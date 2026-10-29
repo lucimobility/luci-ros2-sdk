@@ -1,10 +1,27 @@
 :root {
-    --bg: #f7f8fa;
+    /* LUCI brand palette. The brand uses these together as gradients rather than as single flat
+       colors. Pages use the cool and warm halves of the spectrum, each paired with the other
+       somewhere on the page, rather than the full rainbow. */
+    --luci-violet: #7000ff;
+    --luci-blue: #0000ff;
+    --luci-cyan: #00e8ff;
+    --luci-mint: #00ffc2;
+    --luci-lime: #a6ff99;
+    --luci-yellow: #ffd100;
+    --luci-pink: #ff7096;
+    --luci-magenta: #ff007d;
+    --luci-orange: #ff3600;
+    --spectrum-cool: linear-gradient(90deg, var(--luci-lime), var(--luci-mint), var(--luci-cyan),
+        var(--luci-blue), var(--luci-violet));
+    --spectrum-warm: linear-gradient(90deg, var(--luci-yellow), var(--luci-pink), var(--luci-magenta),
+        var(--luci-orange));
+
+    --bg: #f7f7f9;
     --surface: #ffffff;
-    --text: #16181d;
-    --muted: #555b66;
-    --border: #e1e4ea;
-    --accent: #2e8555;
+    --text: #111114;
+    --muted: #55565f;
+    --border: #e2e2e8;
+    --accent: var(--luci-violet);
     --accent-text: #ffffff;
     --code-bg: #16181d;
     --code-text: #e8eaed;
@@ -14,14 +31,14 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #111317;
-        --surface: #1b1e24;
-        --text: #eceef2;
-        --muted: #a3a9b4;
-        --border: #2c3038;
-        --accent: #25c2a0;
-        --accent-text: #0b0d10;
-        --code-bg: #0b0d10;
+        --bg: #0a0a0c;
+        --surface: #16161a;
+        --text: #f0f0f3;
+        --muted: #a6a7b0;
+        --border: #2a2a31;
+        --accent: var(--luci-cyan);
+        --accent-text: #0a0a0c;
+        --code-bg: #000000;
         color-scheme: dark;
     }
 }
@@ -47,10 +64,10 @@ a {
     padding: 0 16px;
 }
 
-/* The logo is black on transparent, so the header stays light in both schemes. */
 header {
-    background: #ffffff;
-    border-bottom: 1px solid #e1e4ea;
+    background: var(--surface);
+    border-bottom: 3px solid;
+    border-image: var(--spectrum-cool) 1;
 }
 
 header .wrap {
@@ -62,8 +79,10 @@ header .wrap {
     padding-bottom: 12px;
 }
 
+/* 60px tall keeps the logo at the brand guide's 125px minimum width. */
+header picture,
 header img {
-    height: 48px;
+    height: 60px;
     width: auto;
     display: block;
 }
@@ -75,13 +94,16 @@ header nav {
 }
 
 header nav a {
-    color: #16181d;
+    color: var(--text);
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 header nav a:hover {
-    color: #2e8555;
+    color: var(--accent);
 }
 
 .hero {
@@ -114,8 +136,11 @@ header nav a:hover {
     padding: 10px 20px;
     border-radius: 999px;
     font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     text-decoration: none;
-    border: 1px solid var(--accent);
+    border: 2px solid var(--accent);
 }
 
 .button.primary {
@@ -124,7 +149,9 @@ header nav a:hover {
 }
 
 .button.secondary {
-    color: var(--accent);
+    color: var(--text);
+    border-color: transparent;
+    background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--spectrum-warm) border-box;
 }
 
 section {
@@ -134,6 +161,18 @@ section {
 section > .wrap > h2 {
     font-size: 1.6rem;
     margin: 0 0 20px;
+}
+
+/* The brand's keyline: a short gradient underline under section headings. */
+section > .wrap > h2::after,
+.contact h2::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 2px;
+    background: var(--spectrum-warm);
 }
 
 .cards {
@@ -260,7 +299,8 @@ pre {
 }
 
 .stack li.core {
-    border: 2px solid var(--accent);
+    border: 2px solid transparent;
+    background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--spectrum-cool) border-box;
 }
 
 .stack li + li::before {
