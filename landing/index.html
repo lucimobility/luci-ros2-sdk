@@ -35,7 +35,12 @@
 <body>
     <header>
         <div class="wrap">
-            <a href="/"><img src="/assets/sandbox-logo.png" alt="LUCI Sandbox" width="400" height="200"></a>
+            <a href="/">
+                <picture>
+                    <source srcset="/assets/sandbox-logo-dark.png" media="(prefers-color-scheme: dark)">
+                    <img src="/assets/sandbox-logo.png" alt="LUCI Sandbox" width="407" height="196">
+                </picture>
+            </a>
             <nav>
                 <a href="/ros2/docs/">ROS2 docs</a>
                 <a href="#sdk">LUCI SDK</a>
