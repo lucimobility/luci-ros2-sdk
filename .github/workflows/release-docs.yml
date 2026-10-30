@@ -5,6 +5,13 @@ on:
     types: [published]
   workflow_dispatch:
 
+# Serialized with Create Next Documentation: both rebuild the whole site from the docs repo
+# and replace it in S3, so a build that checked out the docs repo before a release pushed its
+# version snapshot would remove that version when it publishes.
+concurrency:
+  group: sdk-docs
+  cancel-in-progress: false
+
 env:
   SDK_REPO: ${{github.event.repository.name}}
   BUILD_TYPE: production
