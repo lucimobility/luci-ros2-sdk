@@ -15,11 +15,11 @@ Remaining work to move the SDK docs, apt repository and Docker images off JFrog 
 ## 2. Settings
 
 - [ ] **Archive signing key.** The repository is currently signed with a temporary test key. Generate the real key and set this repo's `APT_ARCHIVE_SIGNING_KEY` and `APT_ARCHIVE_PASSPHRASE` secrets, following [apt/README.md](apt/README.md#archive-signing-key).
-- [ ] **Actions variables on luci-ros2-sdk**, from the `sdk-site-stack` outputs:
+- [x] **Actions variables on luci-ros2-sdk**, from the `sdk-site-stack` outputs:
   - `AWS_DEPLOY_ROLE_ARN` = `publish-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-publish`)
   - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
   - `SDK_SITE_DISTRIBUTION_ID` = `distribution-id` (`E204ZEINOLYPXO`)
-- [ ] **Actions variables on the package repos** (luci-ros2-msgs, -grpc, -transforms, -third-party, -keyboard-teleop):
+- [x] **Actions variables on the package repos** (luci-ros2-msgs, -grpc, -transforms, -third-party, -keyboard-teleop):
   - `AWS_DEPLOY_ROLE_ARN` = `ros2-pool-upload-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-ros2-pool-upload`)
   - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
 - [ ] **GitHub App permissions.** The package repos start `Publish Apt Index` here with a token from the app behind the org `APP_ID`/`APP_PRIVATE_KEY` secrets. That app needs the **Actions: write** permission, and an org owner has to approve the change.
