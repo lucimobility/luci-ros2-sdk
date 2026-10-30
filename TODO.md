@@ -2,33 +2,33 @@
 
 Remaining work to move the SDK docs, apt repository and Docker images off JFrog Artifactory and GitHub Pages, onto <https://sdk.luci.com>. The site (S3 + CloudFront) is defined in `aws-cdk/lib/sdk-site-stack.ts` in [aws-dev-infrastructure](https://github.com/lucimobility/aws-dev-infrastructure). Delete this file once everything below is checked off.
 
-Every PR in this migration assumes `sdk.luci.com` is live before anything merges. `sdk.luci-guci.com` was only a test deployment and is removed once `sdk.luci.com` serves the site.
+`sdk.luci.com` is live, and every PR in this migration points at it. The `sdk.luci-guci.com` test deployment has been removed.
 
 ## 1. DNS and infrastructure
 
-- [ ] Deploy `sdk-site-zone-stack` from the aws-dev-infrastructure PR. It creates the `sdk.luci.com` hosted zone and outputs its `name-servers`.
-- [ ] Have the luci.com DNS admin add four `NS` records for `sdk` pointing at those name servers. Check with `dig NS sdk.luci.com`.
-- [ ] Once the delegation resolves, deploy `sdk-site-certificate-stack`, then `sdk-site-stack`. The distribution and DNS records move to `sdk.luci.com`; the bucket, its contents and the IAM roles stay.
-- [ ] Delete the old `sdk-site-cert-stack` in us-east-1, which removes the `sdk.luci-guci.com` certificate.
-- [ ] Check <https://sdk.luci.com/>, <https://sdk.luci.com/ros2/docs/> and `https://sdk.luci.com/ros2/apt/dists/jammy/InRelease`.
+- [x] Deploy `sdk-site-zone-stack` from the aws-dev-infrastructure PR. It creates the `sdk.luci.com` hosted zone and outputs its `name-servers`.
+- [x] Have the luci.com DNS admin add four `NS` records for `sdk` pointing at those name servers. Check with `dig NS sdk.luci.com`.
+- [x] Once the delegation resolves, deploy `sdk-site-certificate-stack`, then `sdk-site-stack`. The distribution and DNS records move to `sdk.luci.com`; the bucket, its contents and the IAM roles stay.
+- [x] Delete the old `sdk-site-cert-stack` in us-east-1, which removes the `sdk.luci-guci.com` certificate.
+- [x] Check <https://sdk.luci.com/>, <https://sdk.luci.com/ros2/docs/> and `https://sdk.luci.com/ros2/apt/dists/jammy/InRelease`.
 
 ## 2. Settings
 
 - [ ] **Archive signing key.** The repository is currently signed with a temporary test key. Generate the real key and set this repo's `APT_ARCHIVE_SIGNING_KEY` and `APT_ARCHIVE_PASSPHRASE` secrets, following [apt/README.md](apt/README.md#archive-signing-key).
 - [ ] **Actions variables on luci-ros2-sdk**, from the `sdk-site-stack` outputs:
-  - `AWS_DEPLOY_ROLE_ARN` = `publish-role-arn`
-  - `SDK_SITE_BUCKET` = `bucket-name`
-  - `SDK_SITE_DISTRIBUTION_ID` = `distribution-id`
+  - `AWS_DEPLOY_ROLE_ARN` = `publish-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-publish`)
+  - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
+  - `SDK_SITE_DISTRIBUTION_ID` = `distribution-id` (`E204ZEINOLYPXO`)
 - [ ] **Actions variables on the package repos** (luci-ros2-msgs, -grpc, -transforms, -third-party, -keyboard-teleop):
-  - `AWS_DEPLOY_ROLE_ARN` = `ros2-pool-upload-role-arn`
-  - `SDK_SITE_BUCKET` = `bucket-name`
+  - `AWS_DEPLOY_ROLE_ARN` = `ros2-pool-upload-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-ros2-pool-upload`)
+  - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
 - [ ] **GitHub App permissions.** The package repos start `Publish Apt Index` here with a token from the app behind the org `APP_ID`/`APP_PRIVATE_KEY` secrets. That app needs the **Actions: write** permission, and an org owner has to approve the change.
 - [ ] **GHCR access.** On the `luci-ros2-sdk` and `luci-sdk-development-image` packages, under Package settings → Manage Actions access, give `luci-ros2-sdk` the **Write** role so `Create and Deploy Docker` can push.
 - [ ] **Unused GHCR package.** Delete the `sdk-docs-deployment` package; the docs workflows no longer use a container.
 
 ## 3. Merge order
 
-1. [ ] aws-dev-infrastructure: the SDK site PR (after its stacks are deployed in step 1).
+1. [ ] aws-dev-infrastructure: the SDK site PR. Its stacks are already deployed from the PR branch.
 2. [ ] luci-sdk-docs: the site migration PR, then the branding PR stacked on it. Both have to be on `main` before luci-ros2-sdk merges, because merging luci-ros2-sdk starts `Create Next Documentation`, which builds with luci-sdk-docs' `main` config.
 3. [ ] luci-ros2-sdk: this PR.
 4. [ ] Package repos: luci-ros2-msgs, luci-ros2-grpc, luci-ros2-transforms, luci-ros2-third-party, luci-ros2-keyboard-teleop.
