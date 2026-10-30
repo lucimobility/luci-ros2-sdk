@@ -14,7 +14,7 @@ Remaining work to move the SDK docs, apt repository and Docker images off JFrog 
 
 ## 2. Settings
 
-- [ ] **Archive signing key.** The repository is currently signed with a temporary test key. Generate the real key and set this repo's `APT_ARCHIVE_SIGNING_KEY` and `APT_ARCHIVE_PASSPHRASE` secrets, following [apt/README.md](apt/README.md#archive-signing-key).
+- [x] **Archive signing key.** The repository is currently signed with a temporary test key. Generate the real key and set this repo's `APT_ARCHIVE_SIGNING_KEY` and `APT_ARCHIVE_PASSPHRASE` secrets, following [apt/README.md](apt/README.md#archive-signing-key).
 - [x] **Actions variables on luci-ros2-sdk**, from the `sdk-site-stack` outputs:
   - `AWS_DEPLOY_ROLE_ARN` = `publish-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-publish`)
   - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
