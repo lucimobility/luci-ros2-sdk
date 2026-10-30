@@ -43,16 +43,16 @@ fi
 
 npm run build
 
-# Push the source changes (and any new version) to Docs repo; the built site isn't committed
-git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-git config --local user.name "github-actions[bot]"
-git add .
-git diff --cached --quiet || git commit -m "Updated Docs"
-
+# A release pushes its new version snapshot to the docs repo. Every later build rebuilds all
+# versions from those snapshots, and publishing replaces the whole site, so the push has to
+# succeed before the workflow publishes. Other builds have nothing to keep: source_files is
+# regenerated on every run.
 if [[ $BUILD_TYPE == "production" ]];
-then 
+then
+    git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    git config --local user.name "github-actions[bot]"
+    git add .
+    git commit -m "Add the $REF_NAME docs version"
     git tag -a $REF_NAME -m "Docs Release for $REF_NAME"
     git push origin main --tags
-else
-    git push origin main
 fi
