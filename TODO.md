@@ -22,7 +22,7 @@ Remaining work to move the SDK docs, apt repository and Docker images off JFrog 
 - [x] **Actions variables on the package repos** (luci-ros2-msgs, -grpc, -transforms, -third-party, -keyboard-teleop):
   - `AWS_DEPLOY_ROLE_ARN` = `ros2-pool-upload-role-arn` (`arn:aws:iam::439948611370:role/luci-sdk-ros2-pool-upload`)
   - `SDK_SITE_BUCKET` = `bucket-name` (`luci-sdk-site`)
-- [ ] **GitHub App permissions.** The package repos start `Publish Apt Index` here with a token from the app behind the org `APP_ID`/`APP_PRIVATE_KEY` secrets. That app needs the **Actions: write** permission, and an org owner has to approve the change.
+- [x] **GitHub App permissions.** The package repos start `Publish Apt Index` here with a token from the app behind the org `APP_ID`/`APP_PRIVATE_KEY` secrets. That app needs the **Actions: write** permission, and an org owner has to approve the change.
 - [x] **GHCR access.** On the `luci-ros2-sdk` and `luci-sdk-development-image` packages, under Package settings → Manage Actions access, give `luci-ros2-sdk` the **Write** role so `Create and Deploy Docker` can push.
 - [x] **Unused GHCR package.** Delete the `sdk-docs-deployment` package; the docs workflows no longer use a container.
 
